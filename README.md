@@ -1,16 +1,10 @@
-# Groupomania
+## Groupomania
 
-# start : 15/05/22
+## start : 15/05/22
 
-# finish : 00/00/22
-
-# techno : Vue.js, MySQL, SASS, HTML, CSS, Flexbox
-
-# xix : www.xix.name
+## finish : 00/00/22
 
 github : https://github.com/xixDev
-
-Démo : https://xixdev.github.io/
 
 ## Dev
 
