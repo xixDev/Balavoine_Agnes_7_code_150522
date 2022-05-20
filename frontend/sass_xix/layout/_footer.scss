@@ -1,0 +1,55 @@
+/**************
+Footer
+**************/
+footer {
+    width: 100%;
+    background:$greydark;
+    color:$white;
+  }
+  
+footer{
+  h3 {
+      line-height:2.3;
+      margin:3px 30px 0 18px;
+      &::first-letter{
+        text-transform : lowercase;
+        }
+    }
+    
+    ul a:link {
+      color:$white;
+      margin:10px;
+      padding:4px;
+      text-decoration:none;
+      &:hover {
+      text-decoration: underline;
+    }
+  }
+    li{
+    font-size:15px;
+    padding:3px; 
+    margin:2px;
+    & i{
+      font-size:15px;
+      margin-left:15px;
+      width:16px;
+    }
+   }
+}
+  
+  .itemFooter{
+    @include for-desktop{
+      width:90%;
+      h3{
+        margin-top:-7px;
+      }
+      @include flex-start;
+      flex-wrap: wrap;
+    }
+  
+  }
+  
+  
+
+  
+  

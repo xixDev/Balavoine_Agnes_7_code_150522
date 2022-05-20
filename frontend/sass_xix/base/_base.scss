@@ -1,0 +1,23 @@
+/**************
+BASE
+**************/
+@charset "utf-8";
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    @include margpad;
+}
+
+html {
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+body {
+    background: $colour-background;
+    font-family: $font-site;
+    opacity: 0.97;
+    font-family: $font-web;
+}

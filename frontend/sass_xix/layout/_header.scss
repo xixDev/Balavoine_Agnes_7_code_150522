@@ -1,0 +1,72 @@
+/**************
+header
+**************/
+header{
+ flex :1 100%;
+}
+
+.header-nav{
+  width: 100%; 
+  @include flex-center;
+  height:64px;
+  background:$white;
+  @include bordershadow02;
+ 
+  & h1{
+    animation: shakeX 800ms ease-out 250ms;
+  }
+  & h2{
+    text-align:center;
+    font-size:16px;
+  }
+  &__back{
+    position:relative;
+    color:$black;
+    font-size: 22px;
+    left:-70px;
+    @include for-smphone{
+      left:-20px;
+    }
+    &:hover {
+      i.fas{
+        animation: shakeX 0.8s ease-in-out 150ms;
+        color:$colour-primary;
+       }
+      }
+  }
+} 
+
+.header-info{
+  @include flex-col;
+  background: $greylight02;
+  padding-bottom:50px;
+  header{
+    opacity:0.85;
+    display:block;
+    width:100%;
+    background: $greylight03;
+    & h2{
+      text-align:center;
+    }
+    } 
+    & h3{
+      width:80%;
+      text-align:center;
+      margin-top:30px;
+      font-size:22px;
+    }
+    & p{
+      width:80%;
+      text-align:center;
+      font-size:18px;
+      color:$greym;
+    } 
+}
+
+.header-resto{
+  &__image {
+    @include img-ratio;
+}
+} 
+
+
