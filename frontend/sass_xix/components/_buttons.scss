@@ -1,0 +1,193 @@
+/**************
+Buttons
+**************/
+.btn{
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  @include shadow;
+  cursor: pointer; 
+    &__howto {
+    width:90%; 
+    background: $greylight02; 
+    margin:10px 0 10px 25px; 
+    padding:18px;
+    border-radius: 25px;
+    @include shadow02;
+      a{
+      color:$black;
+      text-align:right;
+      }
+      &__circle{
+        border-radius: 100%;
+        background-color:$colour-primary;
+        font-size:14px;
+        color:$white;
+        padding:6px 9px 6px 9px;
+        margin:0  14px 0 -28px;
+     }
+      &:hover {
+        background-color: $colour-primary-light;
+        transition: opacity 200ms ease-in 200ms, background 200ms ease-out 300ms;/* 1*/
+        i.fas{
+          color:$colour-primary;
+        }
+      }
+  }
+    &__oh {
+      background-color: $colour-primary;
+      background-image: $gradient;
+      border-color: lighten($white, 80%);
+      box-shadow: 0 1px 4px $colour-primary;
+      opacity:0.9;
+      border-radius: 50px;
+      padding: 15px 32px;
+      margin:20px;
+      &:link{
+        background-image: $gradient;
+        transition: opacity 200ms ease-in 200ms, background-color 200ms ease-in 300ms;/* 1*/
+      }
+      &:hover {
+        background-color: lighten($colour-primary, 80%);
+        background-image: $gradient-reverse;
+        opacity:0.8;
+        border-color: $white; 
+        box-shadow: 0 2px 6px $colour-secondary; 
+        transition: opacity 200ms ease-in 200ms, background-color 200ms ease-out 300ms;/* 1*/
+      }
+      
+  }
+}
+
+
+/*BTN resto */
+.icon{
+  right: 0px;
+  width: 0%;
+  opacity:0.2;
+  background:$colour-tertiary;
+  height:100%;
+  i.fas {
+    font-size: 20px;
+    display:block;
+    height: 80px;/*80px*/
+    color:$white;
+    @include flex-center;
+    @include for-smphone{
+      height:110px;
+
+    }
+  }
+  
+} 
+
+.btn-menu {
+  font-size:15px;
+  background: $white;
+  @include flex-start;
+  @include margpad;
+  margin-bottom:14px;
+  border-radius: 20px;
+  overflow:hidden;
+  animation: openSlide 500ms ease-in 450ms;
+  @include shadow02;
+  cursor: pointer; 
+  @include for-smphone{
+    max-width: 360px; 
+  }
+  @include for-tablet{
+    width: 345px;
+    margin-right:15px;
+  }
+  @include for-desktop{
+    width: 420px;
+    margin-right:20px;
+  }
+
+   &__txt{
+    width:100%; 
+    padding:14px 0 14px 16px;
+    
+    overflow:hidden;
+    text-overflow:ellipsis;
+    @include for-smphone{
+      white-space: normal;
+    }
+    @include for-phone{
+      white-space: nowrap;
+    }
+    @include for-tablet{
+      white-space: nowrap;
+    }
+    @include for-desktop{
+      white-space: nowrap;
+    }
+      & h3{
+        font-size:18px;
+        margin-left:-3px;
+        line-height:0.5; 
+        @include for-smphone{
+          font-size:16px;
+          line-height:1.0;
+
+        }
+      }
+      & p{ 
+        @include margpad;
+        display:flex;
+        justify-content:space-between;
+        font-size: 15px; 
+        
+        .euros{
+        padding-right:24px;
+        font-weight: bold;
+        color:#000;
+        }
+       .legend{
+        overflow:hidden;
+        text-overflow:ellipsis;
+        @include for-smphone{
+          font-size:15px;
+
+        }
+        }
+  }
+  }
+
+  &:hover{
+    
+    transition: opacity 200ms ease-in 200ms;/* 1*/
+    & p{
+    height:20px;
+    .euros{
+      animation: slideX 650ms ease-in-out 20ms;
+    }
+  
+    }
+    .icon  {
+      width: 5%;
+      opacity:1;
+      animation: slideX 650ms ease-in-out 20ms;
+      width: 25%;
+      i.fas {
+        animation: turnOver 800ms ease-out 340ms;
+      }
+      
+    }
+
+   
+  
+  }
+
+}
+
+
+
+
+      
+    
+     
+      
+  

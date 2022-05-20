@@ -1,0 +1,115 @@
+/**************
+Typography 
+**************/
+a:link, a:visited{
+	text-decoration: none; color:$greylight03;
+} 
+a:hover { 
+	text-decoration: none; color:$white;
+} 
+
+p { 
+	margin: 0px;
+	padding:10px;
+	line-height: 1.2; 
+  font-size: 14px;
+  font-weight:normal;
+  color: $black; 
+}
+
+p::first-letter, h4::first-letter, h3::first-letter{
+	text-transform : uppercase;
+  }
+
+/***************
+HGROUP
+***************/
+.title{ font-family:$font-logo;font-weight:normal;}
+h1.title{ color:#000; font-size:32px;}
+h2.title{ font-size:28px;text-align:left;}
+h3.title{ color:#fff; font-size:18px;font-weight:normal;}
+
+h1{
+   font-weight:bold;
+   font-size: 25px; 
+	padding:8px;
+}
+
+h2{
+font-size: 17px;
+color:#444;
+}
+
+h3{
+	font-size: 22px;
+	text-align: left;
+	margin:10px 0 12px 8px;
+	}
+
+
+h4{
+	font-size: 20px;
+	text-align: left;
+	margin:10px 0 12px 18px;	
+}
+
+/*******
+ colors
+ *******/
+.tprimary{
+	color:$colour-primary;
+}
+.tsecondary{
+	color:$colour-secondary;
+}
+.ttertiary{
+	color:$colour-tertiary;
+}
+.vert{ 
+	width:40px;
+	border-bottom: 3px solid $colour-tertiary;
+	margin-top:8px;
+	padding-bottom:8px;
+}
+.white{
+	background-color:$white; 
+	}
+
+/** icons **/
+i.fa-heart{
+    color: $black;
+    font-size:22px;
+    cursor: pointer;
+    &:hover {
+      color:transparent;
+      font-weight: bold;/* :) */
+      position: relative;
+      background-clip: text;
+      -webkit-background-clip: text;
+      background-image: $gradient-reverse;
+      animation: heart-anim 2s ease-out 120ms;  
+    }
+  }
+
+  i.fa-list-ul, i.fa-mobile-alt, i.fa-store { 
+      font-size:20px;
+      width:24px;
+      margin:8px;
+      color:$grey;
+      &:hover{ 
+          width:24px;
+          margin:8px;
+          color:$colour-secondary;
+          }
+    }
+    
+    i.fa-mobile-alt{
+    font-size:22px;
+    }
+    
+  /* icon style*/
+    i.fa-map-marker-alt { 
+    padding:12px; 
+    color:$greydark;
+    width:25px;
+    }

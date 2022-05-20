@@ -1,0 +1,35 @@
+/**************
+navigation
+**************/
+nav {
+  @include flex-start;
+  @include for-desktop{
+    @include margpad;
+    flex-wrap: nowrap;
+    margin-right:20px;
+  }
+  @include for-smphone{
+    flex-wrap: wrap;
+    padding-bottom:20px;
+  }
+  @include for-phone{
+    flex-wrap: wrap;
+    padding-bottom:40px;
+  }
+  @include for-tablet{
+    flex-wrap: wrap;
+    padding-bottom:40px;
+  }
+  
+}
+
+
+ul {
+  list-style: none; 
+  padding:20px;
+  @include for-desktop{
+    width:800px;
+    @include flex-center;
+    flex-wrap: nowrap;
+  }
+}
