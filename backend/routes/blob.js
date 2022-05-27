@@ -13,7 +13,8 @@ router.post('/', blobCtrl.createBlob);
 router.get('/:id', blobCtrl.getOneBlob);
 router.put('/:id', blobCtrl.modifyBlob);
 // like/dislike
-// router.post('/:id/like', auth, blobCtrl.rateSauce);
-//router.delete('/:id', blobCtrl.deleteBlob);
+// router.post('/:id/like', blobCtrl.rateBlob);
+// router.post('/:id/like', auth, blobCtrl.rateBlob);
+router.delete('/:id', blobCtrl.deleteBlob);
 
 module.exports = router;

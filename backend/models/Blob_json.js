@@ -1,9 +1,18 @@
 /*---------
 BLOB
-status : 0 post en ligne, 1 hors ligne
+status : 0 en ligne, 1 hors ligne
 usersComments : tableau des idUser des commentateurs
-lien vers table comments : Comment
+lien vers table comments : blobComments (trouver nom)
 ---------*/
+const fs = require('fs');
+const path = require('path');
+
+const p = path.join(
+    path.dirname(process.mainModule.filename),
+    'data',
+    'blob.json'
+);
+
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define(
         'Blob',
@@ -85,3 +94,16 @@ module.exports = (sequelize, DataTypes) => {
         }
     );
 };
+
+
+// JSON 
+getBlob(cb) {
+    fs.readFile(p, (err, fileContent) => {
+      const blob = JSON.parse(fileContent);
+      if (err) {
+        cb(null);
+      } else {
+        cb(blob);
+      }
+    });
+}

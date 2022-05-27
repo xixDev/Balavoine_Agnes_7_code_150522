@@ -4,7 +4,7 @@ const users = [
         email: 'info@st-xix.com',
         password: 'mdp',
         pseudo: 'Moderateur',
-        picture: './assets/colors/bordeaux.png',
+        picture: './images/colors/bordeaux.png',
         admin: 1,
 
         // types: ['Plante', 'Poison'],
@@ -15,7 +15,7 @@ const users = [
         email: 'dagobert@test.com',
         password: 'mdp',
         pseudo: 'Dagobert Testeur',
-        picture: './assets/colors/kaki.png',
+        picture: './images/colors/kaki.png',
         admin: 0,
         created: new Date(),
     },

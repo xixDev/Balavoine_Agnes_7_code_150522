@@ -1,6 +1,8 @@
 const express = require('express');
+const favicon = require('serve-favicon');
 // URL image
 const path = require('path');
+const cors = require('cors');
 
 // const dotenv = require('dotenv');
 const helmet = require('helmet');
@@ -15,6 +17,7 @@ const sequelize = require('./config/sequelize.js');
 // import des MODELS
 const userRoutes = require('./routes/user');
 const blobRoutes = require('./routes/blob');
+const commentRoutes = require('./routes/comment');
 
 /* ---------------------------
 Ces headers permettent :
@@ -34,6 +37,8 @@ app.use((req, res, next) => {
     );
     next();
 });
+// securite / express
+app.use(helmet());
 
 // gestionnaire de routage
 app.use('/images', express.static(path.join(__dirname, 'images')));
@@ -46,26 +51,19 @@ accès à toutes les sortes CORPS de requetes au format JSON ?
 */
 //app.use(bodyParser.urlencoded({ extended: false }));
 // les 2 ??
-app.use(express.json());
-app.use(helmet());
+app.use(favicon(__dirname + '/favicon.ico'))
+    .use(bodyParser.json())
+    .use(cors());
+// app.use(express.json());
 
 // connexion base
 sequelize.initDb();
 
 //app.use('/api/auth', userRoutes);
+//app.use('/api/auth', userRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/blobs', blobRoutes);
-
-// connexion base
-
-// sequelize
-//     .sync()
-//     .then((result) => {
-//         // console.log(result);
-//         app.listen(3000);
-//     })
-//     .catch((err) => {
-//         console.log(err);
-//     });
+// à modiifer /api/blobs/
+app.use('/api/comments', commentRoutes);
 
 module.exports = app;

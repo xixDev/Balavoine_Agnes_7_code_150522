@@ -1,18 +1,23 @@
 const express = require('express');
 const router = express.Router();
 
-// // const userCtrl = require('../controllers/user01');
-const userCtrl = require('../controllers/user');
+// check Token
+// const auth = require('../middleware/auth');
+// const multer = require('../middleware/multer-config');
 
-// // router.post('/signup', userCtrl.signup);
-// // router.post('/login', userCtrl.login);
+const adminCtrl = require('../controllers/admin');
+//const userCtrl = require('../controllers/user');
 
-router.get('/', userCtrl.getAllUser);
-router.post('/', userCtrl.createUser);
-router.get('/:id', userCtrl.getOneUser);
-router.put('/:id', userCtrl.modifyUser);
-// like/dislike
-// router.post('/:id/like', auth, sauceCtrl.rateSauce);
-//router.delete('/:id', userCtrl.deleteUser);
+// avec HASH & TOKEN ajouter uniq valid
+router.post('/signup', adminCtrl.signup);
+// // pas get ?
+router.post('/login', adminCtrl.login);
+
+// TEST
+// router.get('/', userCtrl.getAllUser);
+// router.post('/', userCtrl.createUser);
+// router.get('/:id', userCtrl.getOneUser);
+// router.put('/:id', userCtrl.modifyUser);
+// router.delete('/:id', userCtrl.deleteUser);
 
 module.exports = router;
