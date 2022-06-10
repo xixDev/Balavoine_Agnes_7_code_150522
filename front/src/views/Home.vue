@@ -1,37 +1,52 @@
 <template>
     <div class="home">
-        <FilterNav :current="current" @filterChange="current = $event" />
-        <div v-if="blobs.length">
-            <div v-for="blob in filteredBlobs" :key="blob.id">
-                <SingleBlob
-                    :blob="blob"
-                    @delete="handleDelete"
-                    @status="handleStatus"
-                />
-            </div>
+        <!-- <FilterNav :current="current" @filterChange="current = $event" /> -->
+        <!-- <div v-if="blobs.length"> -->
+        <div v-for="blob in blobs" :key="blob.id">
+            <SingleBlob
+                :blob="blob"
+                @delete="handleDelete"
+                @status="handleStatus"
+            />
         </div>
     </div>
-    <!-- <img alt="Groupomania" src="../assets/logo.png" /> -->
+
+    <!-- </div> -->
 </template>
 
 <script>
+const API_URL = 'http://localhost:3000/api/blobs';
 import SingleBlob from '../components/SingleBlob.vue';
-import FilterNav from '../components/FilterNav.vue';
+//import FilterNav from '../components/FilterNav.vue';
 
 export default {
     name: 'Home',
-    components: { SingleBlob, FilterNav },
+    components: { SingleBlob },
+    //components: { SingleBlob, FilterNav },
     data() {
         return {
-            blobs: [],
-            current: 'all',
+            blobs: null,
+            //current: '',
+            // current: 'all',
         };
     },
     mounted() {
-        fetch('http://localhost:3000/blobs')
-            .then((res) => res.json())
-            .then((data) => (this.blobs = data))
-            .catch((err) => console.log(err));
+        fetch(API_URL)
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+            })
+            .then((response) => {
+                //blobsArray
+                const blobsArray = Object.values(response.data);
+                this.blobs = blobsArray;
+                console.log(blobs);
+            })
+            .catch((error) => {
+                console.log(error);
+                this.error = 'Failed to fetch data - please try again later.';
+            });
     },
     methods: {
         handleDelete(id) {
@@ -46,16 +61,16 @@ export default {
             p.status = !p.status;
         },
     },
-    computed: {
-        filteredBlobs() {
-            if (this.current === 'online') {
-                return this.blobs.filter((blob) => blob.status);
-            }
-            if (this.current === 'offline') {
-                return this.blobs.filter((blob) => !blob.status);
-            }
-            return this.blobs;
-        },
-    },
+    // computed: {
+    //     filteredBlobs() {
+    //         if (this.current === 'online') {
+    //             return this.blobs.filter((blob) => blob.status);
+    //         }
+    //         if (this.current === 'offline') {
+    //             return this.blobs.filter((blob) => !blob.status);
+    //         }
+    //         return this.blobs;
+    //     },
+    // },
 };
 </script>

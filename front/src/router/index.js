@@ -6,6 +6,7 @@ import EditBlob from '../views/EditBlob.vue';
 
 const routes = [
     {
+        //path: '/',
         path: '/',
         name: 'Home',
         component: Home,
@@ -21,12 +22,12 @@ const routes = [
     //     component: SignUp,
     // },
     {
-        path: '/blobs',
+        path: '/api/blobs',
         name: 'AddBlob',
         component: AddBlob,
     },
     {
-        path: '/blobs/:id',
+        path: '/api/blobs/:id',
         name: 'EditBlob',
         component: EditBlob,
         props: true,

@@ -23,6 +23,7 @@
 
 <script>
 export default {
+    name: 'FilterNav',
     props: ['current'],
     methods: {
         updateFilter(by) {

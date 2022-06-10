@@ -1,10 +1,10 @@
 <template>
     <form @submit.prevent="handleSubmit">
-        <label>Title</label>
+        <label>Titre</label>
         <input type="text" v-model="title" required />
-        <label>description</label>
+        <label>Message</label>
         <textarea v-model="description" required></textarea>
-        <button>Update Blob</button>
+        <button>Modifier</button>
     </form>
 </template>
 
@@ -13,7 +13,7 @@ export default {
     props: ['id'],
     data() {
         return {
-            uri: 'http://localhost:3000/blobs/' + this.id,
+            uri: 'http://localhost:3000/api/blobs/' + this.id,
             title: '',
             description: '',
         };

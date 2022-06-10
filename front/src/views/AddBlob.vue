@@ -1,8 +1,8 @@
 <template>
     <form @submit.prevent="handleSubmit">
-        <label>Title</label>
+        <label>Titre</label>
         <input type="text" v-model="title" required />
-        <label>description</label>
+        <label>Message</label>
         <textarea v-model="description" required></textarea>
         <button>Ajouter un message</button>
     </form>
@@ -12,23 +12,52 @@
 export default {
     data() {
         return {
+            userId: '',
             title: '',
             description: '',
+            imageUrl: '',
+            likes: '',
+            dislikes: '',
+            usersLiked: [],
+            usersDisliked: [],
+            usersComments: [],
         };
     },
     methods: {
         handleSubmit() {
             let blob = {
+                //***  */
+                id: Math.floor(Math.random() * 10000),
+                userId: this.userId,
+                status: false,
                 title: this.title,
                 description: this.description,
-                status: false,
-                id: Math.floor(Math.random() * 10000),
+                imageUrl: this.imageUrl,
+                likes: this.likes,
+                dislikes: this.dislikes,
+                usersLiked: this.usersLiked,
+                usersDisliked: this.usersDisliked,
+                usersComments: this.usersComments,
             };
             console.log(blob);
 
-            fetch('http://localhost:3000/blobs', {
+            //         fetch('http://localhost:3000/blobs', {
+            //             method: 'POST',
+            //             headers: { 'Content-Type': 'application/json' },
+            //             body: JSON.stringify(blob),
+            //         })
+            //             .then(() => {
+            //                 this.$router.push('/');
+            //             })
+            //             .catch((err) => console.log(err));
+            //     },
+            // },
+
+            fetch('http://localhost:3000/api/blobs', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                },
                 body: JSON.stringify(blob),
             })
                 .then(() => {

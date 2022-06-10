@@ -1,5 +1,5 @@
 <template>
-    <div class="blob" :class="{ status: blob.status }">
+    <div class="blob" :class="{ status: blob.status }" :key="blob.id">
         <div class="actions">
             <h3 @click="showdescription = !showdescription">
                 Titre : {{ blob.title }}
@@ -7,33 +7,26 @@
 
             <div class="icons">
                 <span @click="deleteBlob" class="material-icons">delete</span>
-                <router-link
+
+                <!-- <router-link
                     :to="{ name: 'EditBlob', params: { id: blob.id } }"
                 >
                     <span class="material-icons">edit</span>
                 </router-link>
                 <span @click="togglestatus" class="material-icons tick"
                     >done</span
-                >
+                > -->
             </div>
         </div>
-        <div>
-            <img class="imgBlob" :src="'' + blob.imageUrl" alt="titre" />
-        </div>
         <div v-if="showdescription" class="description">
-            <p>{{ blob.description }}</p>
-        </div>
-        <div>
-            <span @click="likeBlob" class="material-icons">like</span>
-            <span @click="dislikeBlob" class="material-icons">dislike</span>
+            <p>Description : {{ blob.description }}</p>
         </div>
     </div>
 </template>
 
 <script>
-// import imageUrl from "./assets/"+imageUrl;
 export default {
-    props: ['blob'],
+    props: ['blob', 'id'],
     data() {
         return {
             showdescription: true,
@@ -71,9 +64,6 @@ export default {
     box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.03),
         -3px -3px 6px rgba(136, 134, 134, 0.03);
     border-left: 8px solid #abd4dd;
-}
-.imgBlob {
-    border-color: #02d2fe solid 2px;
 }
 h3 {
     cursor: pointer;
