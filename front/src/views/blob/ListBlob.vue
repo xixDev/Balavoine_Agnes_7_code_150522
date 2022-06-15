@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        <!-- <FilterNav :current="current" @filterChange="current = $event" /> -->
+        <FilterNav :current="current" @filterChange="current = $event" />
         <!-- <div v-if="blobs.length"> -->
         <div v-for="blob in blobs" :key="blob.id">
             <SingleBlob
@@ -17,15 +17,15 @@
 
 <script>
 const API_URL = 'http://localhost:3000/api/blobs';
-// import FilterNav from '../components/blob/FilterNav.vue';
+import FilterNav from '../components/blob/FilterNav.vue';
 import SingleBlob from '../components/blob/SingleBlob.vue';
 
 //const API_URL =('https://vue-http-demo-dbdcb-default-rtdb.europe-west1.firebasedatabase.app/blobs.json');
 
 export default {
     name: 'Home',
-    components: { SingleBlob },
-    //components: { SingleBlob, FilterNav },
+    // components: { SingleBlob },
+    components: { SingleBlob, FilterNav },
     data() {
         return {
             blobs: null,
@@ -76,16 +76,16 @@ export default {
             p.status = !p.status;
         },
     },
-    // computed: {
-    //     filteredBlobs() {
-    //         if (this.current === 'online') {
-    //             return this.blobs.filter((blob) => blob.status);
-    //         }
-    //         if (this.current === 'offline') {
-    //             return this.blobs.filter((blob) => !blob.status);
-    //         }
-    //         return this.blobs;
-    //     },
-    // },
+    computed: {
+        filteredBlobs() {
+            if (this.current === 'online') {
+                return this.blobs.filter((blob) => blob.status);
+            }
+            if (this.current === 'offline') {
+                return this.blobs.filter((blob) => !blob.status);
+            }
+            return this.blobs;
+        },
+    },
 };
 </script>

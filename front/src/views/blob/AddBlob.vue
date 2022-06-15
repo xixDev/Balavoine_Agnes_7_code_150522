@@ -1,69 +1,80 @@
 <template>
     <form @submit.prevent="handleSubmit">
         <label>Titre</label>
-        <input type="text" v-model="title" required />
+        <input type="text" id="title" name="title" v-model="enteredTitle" />
+
+        <label>Image Url</label>
+        <input
+            type="text"
+            id="imageUrl"
+            name="imageUrl"
+            v-model="enteredImageUrl"
+        />
         <label>Message</label>
-        <textarea v-model="description" required></textarea>
+        <textarea v-model="description"></textarea>
         <button>Ajouter un message</button>
     </form>
 </template>
 
 <script>
+const API_URL = 'http://localhost:3000/api/blobs';
+
 export default {
     data() {
         return {
-            userId: '',
+            enteredTitle: '',
+            enteredImageUrl: '',
+            userId: this.$store.state.user.userId,
             title: '',
             description: '',
             imageUrl: '',
-            likes: '',
-            dislikes: '',
-            usersLiked: [],
-            usersDisliked: [],
-            usersComments: [],
+            likes: 0,
+            dislikes: 0,
+            usersLiked: [''],
+            usersDisliked: [''],
+            usersComments: [''],
         };
     },
     methods: {
         handleSubmit() {
             let blob = {
                 //***  */
-                id: Math.floor(Math.random() * 10000),
                 userId: this.userId,
                 status: false,
-                title: this.title,
+                title: this.enteredTitle,
                 description: this.description,
-                imageUrl: this.imageUrl,
+                imageUrl: this.enteredImageUrl,
                 likes: this.likes,
                 dislikes: this.dislikes,
                 usersLiked: this.usersLiked,
                 usersDisliked: this.usersDisliked,
                 usersComments: this.usersComments,
             };
-            console.log(blob);
 
-            //         fetch('http://localhost:3000/blobs', {
-            //             method: 'POST',
-            //             headers: { 'Content-Type': 'application/json' },
-            //             body: JSON.stringify(blob),
-            //         })
-            //             .then(() => {
-            //                 this.$router.push('/');
-            //             })
-            //             .catch((err) => console.log(err));
-            //     },
-            // },
-
-            fetch('http://localhost:3000/api/blobs', {
+            fetch(API_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(blob),
             })
+                .then((response) => {
+                    if (response.ok) {
+                        // ...
+                    } else {
+                        throw new Error('Could not save data!');
+                    }
+                })
                 .then(() => {
                     this.$router.push('/');
                 })
-                .catch((err) => console.log(err));
+                .catch((error) => {
+                    console.log(error);
+                    this.error = error.message;
+                });
+
+            this.enteredTitle = '';
+            this.enteredImageUrl = '';
         },
     },
 };
@@ -71,19 +82,22 @@ export default {
 
 <style>
 form {
-    background: #e4e1e1;
-    padding: 20px;
+    margin: 20px auto;
+    /**#e4e1e1*/
+    width: 100%;
+    background: #fff;
     padding: 10px 20px;
     border-radius: 8px;
     /* border-radius: 50px; */
     box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.03),
         -3px -3px 6px rgba(136, 134, 134, 0.03);
+    border-left: 8px solid #abd4dd;
 }
 label {
     display: block;
     color: #bbb;
     text-transform: uppercase;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
     letter-spacing: 1px;
     margin: 20px 0 10px 0;
@@ -101,15 +115,5 @@ textarea {
     width: 100%;
     box-sizing: border-box;
     height: 100px;
-}
-form button {
-    display: block;
-    margin: 20px auto 0;
-    background: #fd2d01;
-    color: white;
-    padding: 10px;
-    border: 0;
-    border-radius: 6px;
-    font-size: 16px;
 }
 </style>
