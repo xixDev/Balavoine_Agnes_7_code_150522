@@ -1,13 +1,11 @@
 <template>
     <form @submit.prevent="handleSubmit">
-        <label>UserId</label>
-        <input type="number" v-model="userId" required />
         <label>@mail</label>
-        <input type="text" v-model="email" required />
+        <input type="text" v-model="email" />
         <label>Pseudo</label>
-        <input type="text" v-model="pseudo" required />
+        <input type="text" v-model="pseudo" />
         <label>Avatar</label>
-        <input type="text" v-model="picture" required />
+        <input type="text" v-model="picture" />
 
         <button>Modifier</button>
     </form>
@@ -29,7 +27,11 @@ export default {
         };
     },
     mounted() {
-        fetch(this.uri)
+        fetch(this.uri, {
+            headers: {
+                Authorization: `Bearer ${this.$store.state.user.token}`,
+            },
+        })
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -64,11 +66,20 @@ export default {
         //     .catch((err) => console.log(err));
     },
     // PATCH, PUT
+    /**
+     *  headers: {
+                Authorization: `Bearer ${this.$store.state.user.token}`,
+            },
+     */
     methods: {
         handleSubmit() {
             fetch(this.uri, {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${this.$store.state.user.token}`,
+                },
+
                 body: JSON.stringify({
                     pseudo: this.pseudo,
                     picture: this.picture,
@@ -76,7 +87,7 @@ export default {
                 }),
             })
                 .then(() => {
-                    this.$router.push('/user/2');
+                    this.$router.push('/listUser');
                 })
                 .catch((err) => console.log(err));
         },

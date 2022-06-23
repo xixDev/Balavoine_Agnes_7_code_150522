@@ -3,11 +3,7 @@
         <!-- <FilterNav :current="current" @filterChange="current = $event" /> -->
         <!-- <div v-if="blobs.length"> -->
         <div v-for="user in users" :key="user.userId">
-            <SingleUser
-                :user="user"
-                @delete="handleDelete"
-                @status="handleStatus"
-            />
+            <SingleUser :user="user" @delete="handleDelete" />
         </div>
     </div>
     <!-- </div> -->
@@ -19,44 +15,44 @@
 //const axios = require('axios');
 const API_URL = 'http://localhost:3000/api/users';
 //import FilterNav from '../components/user/FilterNav.vue';
-import SingleUser from '../../components/user/SingleUser.vue';
+import SingleUser from '@/components/user/SingleUser.vue';
 
 export default {
     name: 'ListUser',
     components: { SingleUser },
-    // components: { SingleUser, FilterNav },
+    //components: { SingleBlob, FilterNav },
     data() {
         return {
             users: null,
             //current: '',
-            current: 'all',
+            // current: 'all',
         };
     },
     mounted() {
         // axios
-        //     .get('http://localhost:3000/api/users')
+        //     .get('http://localhost:3000/api/blobs')
         //     .then((res) => {
         //         console.log(res.data);
-        //         this.users = res.data;
+        //         this.blobs = res.data;
         //     })
         //     .catch((err) => console.log(err));
 
-        fetch(API_URL)
-            .then((res) => {
-                if (res.ok) {
-                    return res.json();
+        fetch(API_URL, {
+            headers: {
+                //Authorization: 'Bearer ' + localStorage.getItem('token'),
+                Authorization: `Bearer ${this.$store.state.user.token}`,
+            },
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
                 }
             })
-            .then((res) => {
-                const usersArray = Object.values(res.data);
-                console.log(data);
+            .then((response) => {
+                console.log(response);
+                const usersArray = Object.values(response);
                 this.users = usersArray;
-
                 console.log(users);
-
-                // console.log(res.data);
-                // this.users = res.data;
-                // console.log(users);
             })
             .catch((error) => {
                 console.log(error);
@@ -72,12 +68,6 @@ export default {
             this.users = this.users.filter((user) => {
                 return user.userId !== userId;
             });
-        },
-        handleStatus(userId) {
-            let p = this.users.find((user) => {
-                return user.userId === userId;
-            });
-            p.status = !p.status;
         },
     },
     // computed: {

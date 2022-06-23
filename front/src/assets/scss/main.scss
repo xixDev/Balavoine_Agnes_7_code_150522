@@ -1,0 +1,36 @@
+$color-unchecked: #a7a7a7 !default;
+$color-hover: darken($color-unchecked, 15%) !default;
+$checked-color: darken($color-unchecked, 25%) !default;
+
+.like-dislike-buttons {
+  color: $color-unchecked;
+  display: inline-block;
+}
+
+.like-dislike-buttons__btn {
+  color: currentColor;
+  display: inline-block;
+  margin: 0.125rem 0.25rem;
+
+  &.is-checked {
+    color: $checked-color;
+  }
+
+  &[disabled] {
+    pointer-events: none;
+  }
+
+  &:hover,
+  &:focus {
+    color: $color-hover;
+  }
+}
+
+.like-dislike-buttons__icon,
+.like-dislike-buttons__count {
+  margin: {
+    right: 0.25rem;
+    left: 0.25rem;
+  }
+  vertical-align: middle;
+}

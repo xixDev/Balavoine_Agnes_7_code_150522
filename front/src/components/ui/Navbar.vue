@@ -28,10 +28,10 @@ export default {
 <style>
 /** #4E5166   #FFD7D7 #4E5166 */
 .main-nav {
-    background: #9b9eb4;
+    background: #ffd7d7;
+    /** gris #9b9eb4 red : #fd2d01*/
     /* margin: 0;
     padding: 0; */
-
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -47,14 +47,15 @@ export default {
 .main-nav a {
     /* display: inline-block; */
     text-decoration: none;
-    margin: 0 10px;
-    color: #fff;
+    margin: 8px 10px;
+    color: #4e5166;
     font-weight: bold;
     font-size: 18px;
 }
 a.router-link-active {
-    border-bottom: 2px solid #fd2d01;
+    /*border-bottom: 2px solid #fff;*/
     text-decoration: none;
+    color: #eb1ef6;
     /* padding-bottom: 4px; */
 }
 

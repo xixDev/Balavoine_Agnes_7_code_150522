@@ -5,7 +5,7 @@ import Home from '../views/Home.vue';
 
 // USER  remetre AUTH
 import Login from '../views/user/Login.vue';
-import Profile from '../views/user/Profile.vue';
+import Dashboard from '../views/user/Dashboard.vue';
 import ListUser from '../views/user/ListUser.vue';
 import EditUser from '../views/user/EditUser.vue';
 
@@ -35,6 +35,7 @@ const routes = [
         path: '/listUser',
         name: 'ListUser',
         component: ListUser,
+        // props: true,
     },
 
     {
@@ -51,10 +52,11 @@ const routes = [
     },
 
     {
-        name: 'Profile',
+        name: 'Dashboard',
         //path: '/users/:userId',
-        path: '/profile',
-        component: Profile,
+        //path: '/:userId/dashboard',
+        path: '/dashboard',
+        component: Dashboard,
         props: true,
     },
 

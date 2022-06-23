@@ -43,7 +43,7 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     max-width: 600px;
-    margin: 0 auto;
+    margin: 8px auto;
 }
 img {
     max-width: 100%;
@@ -111,5 +111,19 @@ footer .material-icons {
     font-size: 28px;
     color: #ccc;
     padding: 8px;
+}
+button.material-icons {
+    background-color: #eeeeeb;
+    color: #02d2fe;
+    border: none;
+    padding: 0.8rem;
+    border-radius: 6rem;
+    cursor: pointer;
+}
+
+button:hover.material-icons {
+    background-color: #02d2fe;
+    color: #fff;
+    /* color: #fd2d01; */
 }
 </style>

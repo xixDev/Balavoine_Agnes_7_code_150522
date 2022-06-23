@@ -64,14 +64,17 @@ export default {
     data: function () {
         return {
             mode: 'login',
-            email: '',
-            pseudo: '',
-            password: '',
+            // email: '',
+            // pseudo: '',
+            // password: '',
+            email: null,
+            pseudo: null,
+            password: null,
         };
     },
     mounted: function () {
         if (this.$store.state.user.userId != -1) {
-            this.$router.push('/profile');
+            this.$router.push('/dashboard');
             return;
         }
     },
@@ -106,7 +109,6 @@ export default {
         },
         login: function () {
             const self = this;
-            console.log(this.email, this.password);
             this.$store
                 .dispatch('login', {
                     email: this.email,
@@ -114,10 +116,11 @@ export default {
                 })
                 .then(
                     function () {
-                        self.$router.push('/profile');
+                        self.$router.push('/dashboard');
                     },
                     function (error) {
                         console.log(error);
+                        // ajouter route error
                     }
                 );
         },

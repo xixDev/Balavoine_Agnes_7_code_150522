@@ -4,6 +4,9 @@
 
         <h4>Pseudo : {{ user.pseudo }}</h4>
         <h4>userId : {{ user.userId }}</h4>
+
+        <pre>Token : {{ user.token }}</pre>
+
         <!-- <h4>userId store : {{ $store.state.user.userId }}</h4> -->
         <h4>email : {{ user.email }}</h4>
 
@@ -17,21 +20,27 @@
 <script>
 import { mapState } from 'vuex';
 export default {
-    name: 'Profile',
+    name: 'Dashboard',
+
     mounted: function () {
+        console.log('dashboard******* USER :');
         console.log(this.$store.state.user);
+        console.log('dashboard******* USER pseudo:');
+        console.log(this.$store.state.user.pseudo);
+        console.log('dashboard ******* USERS :');
         console.log(this.$store.state.users);
 
         if (this.$store.state.user.userId == -1) {
             this.$router.push('/');
             return;
         }
-
+        console.log(this.$store.state.user);
         this.$store.dispatch('getUserInfos');
     },
     computed: {
         ...mapState({
-            user: 'users',
+            // user: 'user',
+            user: 'user',
         }),
     },
     methods: {

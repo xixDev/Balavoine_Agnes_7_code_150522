@@ -3,7 +3,7 @@ import { createStore } from 'vuex';
 const axios = require('axios');
 
 const instance = axios.create({
-    baseURL: 'http://localhost:3000/api/users/',
+    baseURL: 'http://localhost:3000/api/auth',
 });
 
 // save to localStoage : token, userId
@@ -17,7 +17,9 @@ if (!user) {
 } else {
     try {
         user = JSON.parse(user);
-        instance.defaults.headers.common['Authorization'] = user.token;
+        // instance.defaults.headers.common['Authorization'] = user.token;
+        instance.defaults.headers.common['Authorization'] =
+            'Bearer' + user.token;
     } catch (ex) {
         user = {
             userId: -1,
@@ -30,14 +32,13 @@ if (!user) {
 const store = createStore({
     state: {
         status: '',
-        //user: user,
-        user: user,
-
-        users: {
+        users: [],
+        user: {
             // userId: '',
-            pseudo: '',
             email: '',
+            pseudo: '',
             picture: '',
+            
         },
     },
     mutations: {
@@ -45,14 +46,32 @@ const store = createStore({
             state.status = status;
         },
         logUser: function (state, user) {
-            instance.defaults.headers.common['Authorization'] = user.token;
+            // instance.defaults.headers.common['Authorization'] = user.token;
+            instance.defaults.headers.common['Authorization'] =
+                'Bearer' + user.token;
             localStorage.setItem('user', JSON.stringify(user));
-            //user ou users?
+            //user ou user?
             state.user = user;
+            console.log('//$$$// user:');
+            console.log(user);
         },
-        // userInfos: function (state, userInfos) {
+        user: function (state, user) {
+            state.user = user;
+            // console.log('//$$$// user:');
+            // console.log(user);
+
+            // [userId, email, pseudo, picture, admin](
+            //     (state.user.userId = userId)
+            // ),
+            //     (state.user.email = email),
+            //     (state.user.pseudo = pseudo),
+            //     (state.user.picture = picture);
+            // state.user.admin = admin;
+        },
         users: function (state, users) {
             state.users = users;
+            console.log('//// users:');
+            console.log(users);
         },
         logout: function (state) {
             state.user = {
@@ -63,11 +82,11 @@ const store = createStore({
         },
     },
     actions: {
-        login: ({ commit }, users) => {
+        login: ({ commit }, user) => {
             commit('setStatus', 'loading');
             return new Promise((resolve, reject) => {
                 instance
-                    .post('/login', users)
+                    .post('/login', user)
                     .then(function (response) {
                         commit('setStatus', '');
                         commit('logUser', response.data);
@@ -80,18 +99,18 @@ const store = createStore({
             });
         },
         //
-        createAccount: ({ commit }, users) => {
+        createAccount: ({ commit }, user) => {
             console.log('**********');
-            console.log(users);
+            console.log(user);
             console.log('**********');
             commit('setStatus', 'loading');
             return new Promise((resolve, reject) => {
                 commit;
                 instance
-                    .post('/signup', users)
+                    .post('/signup', user)
                     .then(function (response) {
                         console.log('**********02');
-                        console.log(users);
+                        console.log(user);
                         console.log('**********');
                         commit('setStatus', 'created');
                         resolve(response);
@@ -104,12 +123,9 @@ const store = createStore({
         },
         getUserInfos: ({ commit }) => {
             instance
-                .post('')
+                .post('/dashboard')
                 .then(function (response) {
-                    console.log('**********03');
-                    console.log(users);
-                    console.log('**********');
-                    commit('users', response.data.users);
+                    commit('user', response.data.user);
                 })
                 .catch(function () {});
         },

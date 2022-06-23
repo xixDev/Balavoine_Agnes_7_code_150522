@@ -22,6 +22,8 @@ const API_URL = 'http://localhost:3000/api/blobs';
 export default {
     data() {
         return {
+            token: this.$store.state.user.token,
+            email: this.$store.state.user.email,
             enteredTitle: '',
             enteredImageUrl: '',
             userId: this.$store.state.user.userId,
@@ -30,9 +32,9 @@ export default {
             imageUrl: '',
             likes: 0,
             dislikes: 0,
-            usersLiked: [''],
-            usersDisliked: [''],
-            usersComments: [''],
+            usersLiked: [],
+            usersDisliked: [],
+            usersComments: [],
         };
     },
     methods: {
@@ -51,10 +53,12 @@ export default {
                 usersComments: this.usersComments,
             };
 
+            //Authorization: `Bearer ${this.$store.state.user.token}`,
             fetch(API_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: `Bearer ${this.$store.state.user.token}`,
                 },
                 body: JSON.stringify(blob),
             })

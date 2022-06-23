@@ -23,15 +23,20 @@ export default {
             imageUrl: '',
             description: '',
             userId: this.$store.state.user.userId,
-            likes: 0,
-            dislikes: 0,
-            usersLiked: [''],
-            usersDisliked: [''],
-            usersComments: [''],
+            likes: this.likes,
+            dislikes: this.dislikes,
+            usersLiked: this.usersLiked,
+            usersDisliked: this.usersDisliked,
+            usersComments: this.usersComments,
         };
     },
     mounted() {
-        fetch(this.uri)
+        //fetch(this.uri)
+        fetch(this.uri, {
+            headers: {
+                Authorization: `Bearer ${this.$store.state.user.token}`,
+            },
+        })
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -46,6 +51,12 @@ export default {
                 this.title = data.data.title;
                 this.imageUrl = data.data.imageUrl;
                 this.description = data.data.description;
+                this.likes = data.data.likes;
+                this.dislikes = data.data.dislikes;
+                this.usersLiked = data.data.usersLiked;
+                this.usersDisliked = data.data.usersDisliked;
+                this.usersComments = data.data.usersComments;
+
                 console.log('blob :');
                 console.log(blob);
             })
@@ -53,7 +64,6 @@ export default {
                 console.log(error);
                 this.error = 'Failed to fetch data - please try again later.';
             });
-
     },
     // PATCH, PUT
     methods: {
@@ -72,12 +82,14 @@ export default {
                 usersComments: this.usersComments,
             };
 
+            //
             const headersForm = {
                 method: 'PUT',
                 body: JSON.stringify(blob),
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
+                    Authorization: `Bearer ${this.$store.state.user.token}`,
                 },
             };
             fetch(this.uri, headersForm)
@@ -86,8 +98,6 @@ export default {
                 })
                 .catch((err) => console.log(err));
         },
-       
-
     },
 };
 </script>
