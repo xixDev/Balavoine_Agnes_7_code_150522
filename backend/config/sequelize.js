@@ -1,3 +1,4 @@
+// dotenv.config({ path: './config.env' });
 const { Sequelize, DataTypes } = require('sequelize');
 const bcrypt = require('bcrypt');
 const UserModel = require('../models/user');
@@ -8,15 +9,15 @@ const CommentModel = require('../models/comment');
 
 // test
 //const users = require('../models/mock-user');
-// const blobs = require('../models/mock-blob');
-const comments = require('../models/mock-comments');
+//const blobs = require('../models/mock-blob');
+//const comments = require('../models/mock-comments');
 // ??
 // const {
 //     default: xXssProtection,
 // } = require('helmet/dist/types/middlewares/x-xss-protection');
 
 // TO DO --> cfP6 P7 #utuliser dotend / confignpm start
-const sequelize = new Sequelize('blob01', 'root', 'root', {
+const sequelize = new Sequelize('blob_v1', 'root', 'root', {
     host: 'localhost',
     dialect: 'mysql',
     // show/hide log
@@ -29,8 +30,8 @@ const Comment = CommentModel(sequelize, DataTypes);
 
 // TO SEE -->
 const initDb = () => {
-    //return sequelize.sync().then((_) => {
-    return sequelize.sync({ force: true }).then((_) => {
+    return sequelize.sync().then((_) => {
+        //return sequelize.sync({ force: true }).then((_) => {
         // user
         // const users = [];
         // users.map((user) => {
@@ -44,7 +45,7 @@ const initDb = () => {
         // });
 
         // blob
-        //const blobs = [];
+        // const blobs = [];
         // blobs.map((blob) => {
         //     Blob.create({
         //         userId: blob.userId,
@@ -61,14 +62,14 @@ const initDb = () => {
         // });
 
         // TEST
-        comments.map((comment) => {
-            Comment.create({
-                id: comment.id,
-                userId: comment.userId,
-                status: comment.status,
-                description: comment.description,
-            }).then((comment) => console.log(comment.toJSON()));
-        });
+        // comments.map((comment) => {
+        //     Comment.create({
+        //         id: comment.id,
+        //         userId: comment.userId,
+        //         status: comment.status,
+        //         description: comment.description,
+        //     }).then((comment) => console.log(comment.toJSON()));
+        // });
 
         console.log('La base de donnée a bien été initialisée !');
     });

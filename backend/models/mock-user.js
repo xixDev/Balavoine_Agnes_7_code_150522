@@ -1,6 +1,6 @@
 const users = [
     {
-        id: 1,
+        userId: 1,
         email: 'info@st-xix.com',
         password: 'mdp',
         pseudo: 'Moderateur',
@@ -11,7 +11,7 @@ const users = [
         created: new Date(),
     },
     {
-        id: 2,
+        userId: 2,
         email: 'dagobert@test.com',
         password: 'mdp',
         pseudo: 'Dagobert Testeur',

@@ -3,6 +3,7 @@ const { Blob } = require('../config/sequelize');
 const fs = require('fs');
 
 // create BLOB
+// ajouter status
 exports.createBlob = (req, res, next) => {
     Blob.create(req.body)
         .then((blob) => {
@@ -34,31 +35,8 @@ exports.getOneBlob = (req, res, next) => {
 };
 
 //  like/dislike BLOB
-// A remettre
-
-// update BLOB P6
-// exports.modifyBlob = (req, res, next) => {
-//     const apiId = req.params.id;
-//     const blobObject = req.file
-//         ? {
-//               ...JSON.parse(req.body.blob),
-//               imageUrl: `${req.protocol}://${req.get('host')}/images/${
-//                   req.file.filename
-//               }`,
-//           }
-//         : { ...req.body };
-//     // updateOne
-//     Blob.update({ id: apiId }, { ...blobObject, id: req.params.id })
-//         .then(() => {
-//             res.status(201).json({
-//                 message: 'BLOB updated successfully!',
-//             });
-//         })
-//         .catch((error) => {
-//             res.status(400).json({
-//                 error: error,
-//             });
-//         });
+// exports.rateBlob = (req, res, next) => {
+//     console.log('like/dislike OK');
 // };
 
 // Update BLOB
@@ -73,6 +51,7 @@ exports.modifyBlob = (req, res, next) => {
                     const message = `Le BlOB demandé n'existe pas. Réessayez avec un autre identifiant.`;
                     return res.status(404).json({ message });
                 }
+
                 const message = `Le BlOB ${blob.id} a bien été modifié.`;
                 res.status(200).json({ message, data: blob });
             })
@@ -92,6 +71,13 @@ exports.deleteBlob = (req, res, next) => {
                 const message = `Le BLOB demandé n'existe pas. Réessayez avec un autre identifiant.`;
                 return res.status(404).json({ message });
             }
+            if (blob.userId !== req.auth.userId) {
+                res.status(400).json({
+                    error: new Error(
+                        `Vous n'avez pas les droits pour supprimer ce BLOB`
+                    ),
+                });
+            }
             return Blob.destroy({ where: { id: blob.id } }).then((_) => {
                 const message = `Le BLOB avec l'identifiant n° ${blob.id} a bien été supprimé.`;
                 res.json({ message, data: blob });
@@ -103,42 +89,9 @@ exports.deleteBlob = (req, res, next) => {
         });
 };
 
-// exports.deleteBlob = (req, res, next) => {
-//     const apiId = req.params.id;
-//     Blob.findAll({ where: { id: apiId } })
-//         //Blob.findOne({ id: apiId })
-//         .then((blob) => {
-//             if (!blob) {
-//                 res.status(404).json({
-//                     error: new Error('No such BLOB!'),
-//                 });
-//             }
-//             if (sauce.userId !== req.auth.userId) {
-//                 res.status(400).json({
-//                     error: new Error('Unauthorized request!'),
-//                 });
-//             }
-
-//             // delete sauce and image
-//             const filename = blob.imageUrl.split('/images/')[1];
-//             fs.unlink(`images/${filename}`, () => {
-//                 // destroy / deleteOne
-//                 Blob.destroy({ where: { id: pokemon.id } })
-//                     .then(() =>
-//                         res
-//                             .status(200)
-//                             .json({ message: 'Image & BLOB supprimés !' })
-//                     )
-//                     .catch((error) => res.status(400).json({ error }));
-//             });
-//         })
-//         .catch((error) => res.status(500).json({ error }));
-// };
-
 // get all BLOB
 exports.getAllBlob = (req, res, next) => {
-    //
-    Blob.findAll({ order: ['title'] })
+    Blob.findAll({ order: [['created', 'DESC']] })
         .then((blobs) => {
             const message = 'La liste des BLOBS a bien été récupéré.';
             //res.json({ message, data: blobs });

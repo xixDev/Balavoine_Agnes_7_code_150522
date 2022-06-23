@@ -9,14 +9,22 @@ module.exports = (sequelize, DataTypes) => {
     return sequelize.define(
         'User',
         {
-            id: {
+            // au lieu de id
+            userId: {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
                 autoIncrement: true,
             },
+
             email: {
                 type: DataTypes.STRING,
                 allowNull: false,
+                unique: {
+                    msg: 'Cet email est déjà pris',
+                },
+                validate: {
+                    isEmail: true,
+                },
             },
             password: {
                 type: DataTypes.STRING,
@@ -24,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
             },
             pseudo: {
                 type: DataTypes.STRING,
-                defaultValue: 'Pseudo',
+                //defaultValue: 'Pseudo',
             },
             picture: {
                 type: DataTypes.STRING,
