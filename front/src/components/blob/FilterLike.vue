@@ -1,15 +1,19 @@
 <template>
-    <form @submit.prevent="rateBlob">
+    <form class="form-like" @submit.prevent="rateBlob">
+        <!--:class="{ active: currentLike === 'jaimepas' }" :class="[isActive ? activeClass : '']"
         <nav class="filter-like">
+        -->
+        <nav class="filter-like">
+            <!-- <h4>Donnez votre avis :</h4> -->
             <button
-                @click-once="updateFilter('jaime')"
+                @click="updateFilter('jaime')"
                 :class="{ active: currentLike === 'jaime' }"
             >
                 <span class="material-icons thumb_up"> thumb_up</span>
             </button>
             {{ likesComputed }}
             <button
-                @click-once="updateFilter('jaimepas')"
+                @click="updateFilter('jaimepas')"
                 :class="{ active: currentLike === 'jaimepas' }"
             >
                 <span class="material-icons thumb_down"> thumb_down</span>
@@ -34,8 +38,8 @@ const API_URL = 'http://localhost:3000/api/blobs/';
 
 export default {
     name: 'FilterLike',
-    //props: ['currentLike', 'blob'],
-    props: ['blob', 'currentLike'],
+    props: ['currentLike', 'blob'],
+    //props: ['blob'],
     data() {
         // like: 0;
         return {
@@ -47,7 +51,7 @@ export default {
             likes: this.blob.likes,
             dislikes: this.blob.dislikes,
             //active: false,
-            // isActive: true,
+            isActive: true,
             uriLike: API_URL + this.blob.id + '/like',
         };
     },
@@ -228,12 +232,34 @@ export default {
 </script>
 
 <style>
+form.form-like {
+    /** gris (#9b9eb4) #4E5166 red : #fd2d01 rose :FFD7D7  */
+    /**#e4e1e1 #f0b6b6  bleu ciel cae2e7*/
+    margin-top: -20px;
+    padding-top: 0px;
+    background-image: linear-gradient(62deg, #ffd7d7 0%, #eeeeeb 100%);
+    /* background-color: #bbb; */
+    /* background: rgb(251, 229, 229); */
+    border-radius: 0 0 20px 20px;
+    opacity: 90%;
+    border-top: 2px solid #fff;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.05),
+        -3px -3px 6px rgba(136, 134, 134, 0.05);
+    border-left: 0px solid #cae2e7;
+}
+
 .filter-like {
-    border-top: 2px dotted #4e5166;
+    color: #9b9eb4;
+    /* background-color: #eeeeeb; */
+    border-radius: 20px;
+    margin: 0 auto;
+    padding: 0;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
-    color: #ef8585;
+    height: 35px;
+    width: 240px;
+    font-weight: bold;
 }
 .filter-like button {
     background: none;

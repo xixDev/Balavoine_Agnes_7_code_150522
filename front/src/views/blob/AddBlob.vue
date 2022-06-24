@@ -91,15 +91,15 @@ form {
     width: 100%;
     background: #fff;
     padding: 10px 20px;
-    border-radius: 8px;
+    border-radius: 20px;
     /* border-radius: 50px; */
     box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.03),
         -3px -3px 6px rgba(136, 134, 134, 0.03);
-    border-left: 8px solid #abd4dd;
+    border-left: 8px solid #fff;
 }
 label {
     display: block;
-    color: #bbb;
+    color: #4e5166;
     text-transform: uppercase;
     font-size: 16px;
     font-weight: bold;
@@ -109,7 +109,7 @@ label {
 input {
     padding: 10px;
     border: 0;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px dotted #4e5166;
     width: 100%;
     box-sizing: border-box;
 }

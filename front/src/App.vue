@@ -18,7 +18,7 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
 
-/** #4E5166   #FFD7D7 #4E5166 */
+/** gris : #4E5166 rouge : #FD2D01 rose : #FFD7D7  */
 * {
     font-family: 'Lato', sans-serif;
     margin: 0;
@@ -27,10 +27,14 @@ export default {
 }
 
 body {
-    background: #f2f2f2;
-
+    /* background: #f2f2f2; */
+    background: #eeeeeb;
+    color: #4e5166;
     min-height: 100vh;
-    /* background-image: linear-gradient(62deg, #f2f2f2 0%, #fff 100%); */
+    opacity: 95%;
+    /* background-image: linear-gradient(62deg, #cae2e7 0%, #4e5166 100%); */
+    /* background-image: linear-gradient(62deg, #eeeeeb 0%, #ffd7d7 100%); */
+    /* background-image: linear-gradient(62deg, #f9e6e6 0%, #eeeeeb 100%); */
     /* display: flex;
     align-items: center;
     justify-content: center;
@@ -43,7 +47,7 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     max-width: 600px;
-    margin: 8px auto;
+    margin: 0px auto;
 }
 img {
     max-width: 100%;
@@ -69,10 +73,10 @@ h3 {
     margin: 20px auto;
     background: #fff;
     padding: 10px 20px;
-    border-radius: 8px;
+    border-radius: 20px;
     box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.03),
         -3px -3px 6px rgba(136, 134, 134, 0.03);
-    border-left: 8px solid #abd4dd;
+    border-left: 8px solid #fff;
 }
 
 button {
@@ -89,7 +93,7 @@ button {
     font-size: 16px;
     font-weight: bold;
     /* box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.05),
-        -3px -3px 6px rgba(136, 134, 134, 0.03); */
+        -3px -3px 6px rgba(136, 134, 134, 0.03);9b9eb4 */
 }
 button:hover {
     background-color: #ffd7d7;

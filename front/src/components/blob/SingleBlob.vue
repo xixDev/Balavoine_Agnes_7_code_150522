@@ -3,7 +3,7 @@
         <div class="user">
             <span class="material-icons face_5"> face_5 </span>
             <h4>
-                userId : {{ blob.userId }} / Pseudo :
+                userId : {{ blob.userId }} / Pseudo : / Blob ID : {{ blob.id }}
                 <!-- <img class="imgBlob" :src="'' + blob.imageUrl" alt="titre" />{{ user.pseudo }}  -->
             </h4>
         </div>
@@ -45,7 +45,7 @@ export default {
     data() {
         return {
             showTools: false,
-            showdescription: false,
+            showdescription: true,
             uri: API_URL + this.blob.id,
         };
     },
@@ -96,11 +96,13 @@ export default {
     /**#e4e1e1*/
     background: #fff;
     padding: 10px 20px 10px 20px;
-    border-radius: 8px;
+    border-radius: 20px 20px 0px 0px;
     /* border-radius: 50px; */
     box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.03),
         -3px -3px 6px rgba(136, 134, 134, 0.03);
-    border-left: 8px solid #abd4dd;
+    /* border-left: 8px dotted #d47575; */
+    opacity:90%;
+   border: 8px solid #fff;
 }
 .imgBlob {
     border-color: #02d2fe solid 2px;
@@ -114,6 +116,10 @@ export default {
 h3 {
     cursor: pointer;
 }
+h4 {
+    color: #4e5166;
+}
+
 .actions {
     display: flex;
     justify-content: space-between;
@@ -134,7 +140,8 @@ h3 {
 }
 .user {    
     opacity: 0.8;
-    border-bottom: 2px dotted #4e5166;
+    border-bottom: 1px dotted #4e5166;
+    color: #4e5166;
     display: flex;
     justify-content: flex-start;
     align-items: center;

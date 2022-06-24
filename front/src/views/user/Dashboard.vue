@@ -1,11 +1,9 @@
 <template>
     <div class="blob">
         <h3>Mon dashboard</h3>
-
+        <span class="material-icons face_5"> face_5 </span>
         <h4>Pseudo : {{ user.pseudo }}</h4>
         <h4>userId : {{ user.userId }}</h4>
-
-        <pre>Token : {{ user.token }}</pre>
 
         <!-- <h4>userId store : {{ $store.state.user.userId }}</h4> -->
         <h4>email : {{ user.email }}</h4>
@@ -23,12 +21,12 @@ export default {
     name: 'Dashboard',
 
     mounted: function () {
-        console.log('dashboard******* USER :');
-        console.log(this.$store.state.user);
-        console.log('dashboard******* USER pseudo:');
-        console.log(this.$store.state.user.pseudo);
-        console.log('dashboard ******* USERS :');
-        console.log(this.$store.state.users);
+        // console.log('dashboard******* USER :');
+        // console.log(this.$store.state.user);
+        // console.log('dashboard******* USER pseudo:');
+        // console.log(this.$store.state.user.pseudo);
+        // console.log('dashboard ******* USERS :');
+        // console.log(this.$store.state.users);
 
         if (this.$store.state.user.userId == -1) {
             this.$router.push('/');
@@ -52,4 +50,10 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.material-icons {
+    /* font-size: 24px;
+    margin-left: 10px; */
+    color: #4e5166;
+}
+</style>

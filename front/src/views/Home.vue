@@ -11,18 +11,16 @@
                 :blob="blob"
                 :currentLike="currentLike"
                 @filterChange="currentLike = $event"
+                @likeRate="handleLikeRate"
             />
         </div>
     </div>
 </template>
 
 <script>
-// @likeRate="handleLikeRate"
-/*
-:currentLike="currentLike"
-@filterChange="currentLike = $event"
-@like="handleLike"
-*/
+//@likeRate="handleLikeRate"
+//:likeRate="likeRate"
+//:currentLike="currentLike"
 import { mapState } from 'vuex';
 const API_URL = 'http://localhost:3000/api/blobs';
 
@@ -35,7 +33,9 @@ export default {
     data() {
         return {
             blobs: null,
-            currentLike: '',
+            currentLike: this.currentLike,
+            likeRate: this.likeRate,
+            userId: this.$store.state.user.userId,
         };
     },
     mounted() {
@@ -70,24 +70,31 @@ export default {
                 return blob.id !== id;
             });
         },
-        handleLike(id) {
+        handleLikeRate00(id) {
             this.blobs = this.blobs.filter((blob) => {
                 return blob.id !== id;
             });
         },
-        handleLikeRate(userId) {
-            //let likeRate = 0;
+        handleLikeRate(id, userId) {
+            let likeRate = 0;
             this.blobs = this.blobs.filter((blob) => {
                 // si deja RATE || blob.usersDisliked.includes(userId)
                 if (blob.usersLiked.includes(userId)) {
-                    this.likeRate = 1;
+                    this.likeRate = 0;
+                    this.currentLike = 'jaime';
+                    console.log(`LikeRate usersLiked : ${likeRate}`);
                 } else if (blob.usersDisliked.includes(userId)) {
-                    this.likeRate = -1;
+                    this.likeRate = 0;
+                    this.currentLike = 'jaimepas';
+                    console.log(`LikeRate usersDisliked: ${likeRate}`);
+                } else {
+                    console.log(`LikeRate norate: ${likeRate}`);
+                    this.currentLike = '';
                 }
-                console.log(`LikeRate : ${likeRate}`);
-                return this.likeRate;
+                console.log(`LikeRate04 : ${likeRate}`);
+                return blob.id !== id;
             });
-            console.log(`LikeRate2 : ${likeRate}`);
+            console.log(`LikeRate05 : ${likeRate}`);
         },
     },
     computed: {

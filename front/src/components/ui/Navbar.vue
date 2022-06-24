@@ -26,10 +26,12 @@ export default {
 </script>
 
 <style>
-/** #4E5166   #FFD7D7 #4E5166 */
+/** #4E5166   #FFD7D7 #4E5166  rose pale f9e6e6 #eeeeeb*/
+/** gris : #4E5166 rouge : #FD2D01 rose : #FFD7D7  */
 .main-nav {
-    background: #ffd7d7;
-    /** gris #9b9eb4 red : #fd2d01*/
+    background: #fd2d01;
+    /* background-image: linear-gradient(62deg, #eeeeeb 0%, #ffd7d7 100%); */
+    /** gris (#9b9eb4) #4E5166 red : #fd2d01 rose :FFD7D7  */
     /* margin: 0;
     padding: 0; */
     display: flex;
@@ -38,31 +40,31 @@ export default {
     height: 60px;
 
     padding: 10px 20px;
-    border-radius: 8px;
+    border-radius: 0 0 20px 20px;
     /* border-radius: 50px; */
-    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.03),
-        -3px -3px 6px rgba(136, 134, 134, 0.03);
-    border-left: 8px solid #4e5166;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.06),
+        -3px -3px 6px rgba(136, 134, 134, 0.06);
+    /* border-top: 8px solid #9b9eb4; */
 }
 .main-nav a {
     /* display: inline-block; */
     text-decoration: none;
     margin: 8px 10px;
-    color: #4e5166;
+    color: #ffd7d7;
     font-weight: bold;
     font-size: 18px;
 }
 a.router-link-active {
     /*border-bottom: 2px solid #fff;*/
     text-decoration: none;
-    color: #eb1ef6;
+    color: #4e5166;
     /* padding-bottom: 4px; */
 }
 
-.material-icons {
+.main-nav .material-icons {
     /* font-size: 24px;
     margin-left: 10px; */
-    color: #fff;
+    color: #ffd7d7;
 }
 
 .face_5,
@@ -79,8 +81,9 @@ a.router-link-active {
     /* border: 2px solid #abd4dd; */
 }
 
-.face_5:hover {
-    color: #fd2d01;
+.face_5:hover,
+.admin_panel_settings:hover {
+    color: #4e5166;
 
     /* border: 2px solid #abd4dd; */
 }
