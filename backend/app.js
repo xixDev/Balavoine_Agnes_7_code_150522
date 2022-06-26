@@ -10,8 +10,7 @@ const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const app = express();
 
-//const sequelize = require('./util/database');
-// to SEE ---> connexion base de données A REVOIR
+//const sequelize
 const sequelize = require('./config/sequelize.js');
 
 // import des MODELS
@@ -49,8 +48,6 @@ app.use(express.urlencoded({ extended: true }));
 accès à toutes les sortes CORPS de requetes au format JSON ?
 (ou bodyparser)
 */
-//app.use(bodyParser.urlencoded({ extended: false }));
-// les 2 ??
 app.use(favicon(__dirname + '/favicon.ico'))
     .use(bodyParser.json())
     .use(cors());
@@ -59,8 +56,8 @@ app.use(favicon(__dirname + '/favicon.ico'))
 // connexion base
 sequelize.initDb();
 
-//app.use('/api/auth', userRoutes);
-//app.use('/api/auth', userRoutes);
+app.use('/api/auth', userRoutes);
+// à revoir
 app.use('/api/users', userRoutes);
 app.use('/api/blobs', blobRoutes);
 // à modiifer /api/blobs/

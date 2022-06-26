@@ -1,9 +1,7 @@
-//const Blob = require('../models/blob');
 const { Blob } = require('../config/sequelize');
-const fs = require('fs');
+//const fs = require('fs');
 
 // create BLOB
-// ajouter status
 exports.createBlob = (req, res, next) => {
     Blob.create(req.body)
         .then((blob) => {
@@ -33,11 +31,6 @@ exports.getOneBlob = (req, res, next) => {
             res.status(500).json({ message, data: error });
         });
 };
-
-//  like/dislike BLOB
-// exports.rateBlob = (req, res, next) => {
-//     console.log('like/dislike OK');
-// };
 
 // Update BLOB
 exports.modifyBlob = (req, res, next) => {

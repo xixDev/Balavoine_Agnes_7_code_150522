@@ -2,8 +2,8 @@ const { Blob } = require('../config/sequelize');
 
 //  like/dislike BLOB
 exports.rateBlob = (req, res, next) => {
-    let likeRate = req.body.likeRate;
-    let userId = req.body.userId;
+    let likeRate = parseFloat(req.body.likeRate);
+    let userId = parseFloat(req.body.userId);
     // ou parseFloat ?
     // userId = parseInt(userId);
     const id = req.params.id;

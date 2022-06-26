@@ -14,8 +14,7 @@ exports.signup = (req, res, next) => {
                 password: hash,
             });
             user.save()
-                // bug
-                // user.create()
+
                 .then((user) => {
                     const message = `Le user ${user.userId} ${user.pseudo} a bien été crée.`;
                     res.json({ message, data: user });
@@ -30,9 +29,8 @@ exports.signup = (req, res, next) => {
 
 // LOGIN
 exports.login = (req, res, next) => {
-    //const apiEm = req.body.email;
     User.findOne({ where: { email: req.body.email } })
-        //User.findByPk(req.body.email)
+
         .then((user) => {
             if (user === null) {
                 return res
@@ -49,7 +47,7 @@ exports.login = (req, res, next) => {
                     }
                     res.status(200).json({
                         userId: user.userId,
-                        // token: 'TOKEN',
+
                         token: jwt.sign(
                             { userId: user.userId },
                             'RANDOM_TOKEN_SECRET',

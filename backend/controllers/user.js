@@ -1,12 +1,11 @@
 const { User } = require('../config/sequelize');
-const fs = require('fs');
+//const fs = require('fs');
 
 // get one BLOB findByPk findOne
 exports.getOneUser = (req, res, next) => {
     const apiId = req.params.userId;
     User.findByPk(apiId)
         .then((user) => {
-            // console.log(`userId ??????? : ${userId}`);
             if (user === null) {
                 const message = `Le USER demandé n'existe pas. Réessayez avec un autre identifiant.`;
                 return res.status(404).json({ message });
@@ -20,25 +19,15 @@ exports.getOneUser = (req, res, next) => {
         });
 };
 
-// post dashboard findByPk findOne
-exports.postOneUser = (req, res, next) => {
+// post DASHBOARD findByPk findOne
+exports.dashboard = (req, res, next) => {
     console.log('route dashboard');
-
-    // const apiId = req.params.userId;
-    // User.findByPk(apiId)
-    //     .then((user) => {
-    //         // console.log(`userId ??????? : ${userId}`);
-    //         if (user === null) {
-    //             const message = `Le USER demandé n'existe pas. Réessayez avec un autre identifiant.`;
-    //             return res.status(404).json({ message });
-    //         }
-    //         const message = `Un USER a bien été trouvé.`;
-    //         res.status(200).json({ message, data: user });
-    //     })
-    //     .catch((error) => {
-    //         const message = `Le USER n'a pas pu être récupéré. Réessayez dans quelques instants.`;
-    //         res.status(500).json({ message, data: error });
-    //     });
+    const user = {
+        userId: '',
+        email: '',
+        pseudo: '',
+    };
+    console.log(user);
 };
 
 // update USER
@@ -89,7 +78,6 @@ exports.deleteUser = (req, res, next) => {
 
 // all USER
 exports.getAllUser = (req, res, next) => {
-    //User.query('SELECT * from Blobs');
     // find mongo
     User.findAll()
         .then((users) => {

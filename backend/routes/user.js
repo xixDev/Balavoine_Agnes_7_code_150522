@@ -8,19 +8,12 @@ const auth = require('../middleware/auth');
 const adminCtrl = require('../controllers/admin');
 const userCtrl = require('../controllers/user');
 
-// avec HASH & TOKEN ajouter uniq valid
+// avec HASH & TOKEN
 router.post('/signup', adminCtrl.signup);
 router.post('/login', adminCtrl.login);
-
-// TEST
-// dashboard remmettre auth
-router.post('/dashboard', auth, userCtrl.postOneUser);
-// router.post('/:userId/dashboard', userCtrl.postOneUser);
-
+router.post('/dashboard', userCtrl.dashboard);
 router.get('/:userId', auth, userCtrl.getOneUser);
-router.get('/', userCtrl.getAllUser);
-// router.post('/', userCtrl.createUser);
-// router.get('/:userId', userCtrl.getOneUser);
+router.get('/', auth, userCtrl.getAllUser);
 router.put('/:userId', auth, userCtrl.modifyUser);
 router.delete('/:userId', auth, userCtrl.deleteUser);
 
