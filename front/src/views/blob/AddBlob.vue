@@ -2,13 +2,13 @@
     <form @submit.prevent="handleSubmit">
         <label>Titre</label>
         <input type="text" id="title" name="title" v-model="enteredTitle" />
-
         <label>Image Url</label>
         <input
             type="text"
             id="imageUrl"
             name="imageUrl"
             v-model="enteredImageUrl"
+            placeholder="https://"
         />
         <label>Message</label>
         <textarea v-model="description"></textarea>
@@ -40,7 +40,6 @@ export default {
     methods: {
         handleSubmit() {
             let blob = {
-                //***  */
                 userId: this.userId,
                 status: false,
                 title: this.enteredTitle,
@@ -53,7 +52,6 @@ export default {
                 usersComments: this.usersComments,
             };
 
-            //Authorization: `Bearer ${this.$store.state.user.token}`,
             fetch(API_URL, {
                 method: 'POST',
                 headers: {

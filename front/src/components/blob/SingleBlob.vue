@@ -3,8 +3,7 @@
         <div class="user">
             <span class="material-icons face_5"> face_5 </span>
             <h4>
-                userId : {{ blob.userId }} / Pseudo : / Blob ID : {{ blob.id }}
-                <!-- <img class="imgBlob" :src="'' + blob.imageUrl" alt="titre" />{{ user.pseudo }}  -->
+                 Pseudo {{ blob.userId }}  / Blob ID : {{ blob.id }}
             </h4>
         </div>
         <div class="actions">
@@ -25,13 +24,9 @@
                 </router-link>
             </div>
         </div>
-        <!-- <div>
-            <img class="imgBlob" :src="'' + blob.imageUrl" alt="titre" />
-        </div> -->
         <div v-if="showdescription" class="description">
         <img class="imgBlob" :src="'' + blob.imageUrl" alt="titre" />
             <p><pre>{{ blob.description }}</pre></p>
-            <!-- <legend>{{ blob.created }}</legend> -->
         </div>
 
     </div>
@@ -41,33 +36,28 @@
 const API_URL = 'http://localhost:3000/api/blobs/';
 
 export default {
-    props: ['blob'],
+    props: ['blob','user'],
     data() {
         return {
             showTools: false,
             showdescription: true,
             uri: API_URL + this.blob.id,
+            pseudo: this.user.pseudo,
+            admin:this.user.admin,
         };
     },
     mounted() {
-        //console.log(`userId :`);
-        // on teste si admin et si userId match userId du blob
-        // && this.user.admin === 0
-        // && this.user.admin === 1
-        if (this.$store.state.user.userId != this.blob.userId) {
-            // console.log(`user.userId : ${this.$store.state.user.userId}`);
-            // console.log(`blob.userId : ${this.blob.userId}`);
-            // console.log(` hideTools************`);
+        // on teste si userId match userId du blob
+        if ((this.$store.state.user.userId != this.blob.userId) && this.$store.state.user.userId!=1 ) {
             this.showTools = false;
+            // moderateur
+        } else if(this.$store.state.user.userId===1) {
+            this.showTools = true;
         } else {
-            // console.log(`user.userId : ${this.$store.state.user.userId}`);
-            // console.log(`blob.userId : ${this.blob.userId}`);
-            // console.log(`showTools************`);
             this.showTools = true;
         }
     },
     methods: {
-        // ajouter modale ou alert
         // DELETE
         deleteBlob() {
             const headersForm = {
@@ -79,7 +69,6 @@ export default {
                 },
             };
             fetch(this.uri, headersForm)
-        
                 .then(() => this.$emit('delete', this.blob.id))
                 .catch((err) => console.log(err));
         },
@@ -93,14 +82,11 @@ export default {
 <style scoped>
 .blob {
     margin: 20px auto;
-    /**#e4e1e1*/
     background: #fff;
     padding: 10px 20px 10px 20px;
     border-radius: 20px 20px 0px 0px;
-    /* border-radius: 50px; */
     box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.03),
         -3px -3px 6px rgba(136, 134, 134, 0.03);
-    /* border-left: 8px dotted #d47575; */
     opacity:90%;
    border: 8px solid #fff;
 }
@@ -108,7 +94,6 @@ export default {
     border-color: #02d2fe solid 2px;
 }
 .description p {
-    /* background: #f1cece; */
     color: #d47575;
     padding: 10px;
     margin: 8px;
@@ -146,7 +131,6 @@ h4 {
     justify-content: flex-start;
     align-items: center;
 }
-
 .face_5 {
     font-size: 44px;
     margin-right: 10px;

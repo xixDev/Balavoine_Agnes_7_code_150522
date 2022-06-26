@@ -64,9 +64,6 @@ export default {
     data: function () {
         return {
             mode: 'login',
-            // email: '',
-            // pseudo: '',
-            // password: '',
             email: null,
             pseudo: null,
             password: null,
@@ -120,13 +117,11 @@ export default {
                     },
                     function (error) {
                         console.log(error);
-                        // ajouter route error
                     }
                 );
         },
         createAccount: function () {
             const self = this;
-            console.log(this.email, this.pseudo, this.password);
             this.$store
                 .dispatch('createAccount', {
                     email: this.email,

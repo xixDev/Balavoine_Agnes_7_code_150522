@@ -1,57 +1,34 @@
 <template>
     <form class="form-like" @submit.prevent="rateBlob">
-        <!--:class="{ active: currentLike === 'jaimepas' }" :class="[isActive ? activeClass : '']"
         <nav class="filter-like">
-        -->
-        <nav class="filter-like">
-            <!-- <h4>Donnez votre avis :</h4> -->
+            <h4>Donnez votre avis :</h4>
             <button
-                @click="updateFilter('jaime')"
-                :class="{ active: currentLike === 'jaime' }"
+                @click="
+                    toggleLike();
+                    updateFilter('jaime');
+                "
+                :class="{ active: liked }"
             >
-                <span class="material-icons thumb_up"> thumb_up</span>
-            </button>
-            {{ likesComputed }}
-            <button
-                @click="updateFilter('jaimepas')"
-                :class="{ active: currentLike === 'jaimepas' }"
-            >
-                <span class="material-icons thumb_down"> thumb_down</span>
-            </button>
-            {{ dislikesComputed }}
+                <span class="material-icons thumb_up"> thumb_up</span></button
+            >{{ likesComputed }}
         </nav>
-        <!-- <div>
-            <h4>likeRate : {{ likeRate }}</h4>
-            <h4>Blob ID : {{ blob.id }}</h4>
-            <h4>dislikes : {{ blob.dislikes }}</h4>
-            <h4>userDisliked : {{ blob.usersDisliked }}</h4>
-
-            <h4>Likes : {{ blob.likes }}</h4>
-            <h4>userLiked : {{ blob.usersLiked }}</h4>
-        </div> -->
     </form>
 </template>
 
 <script>
-//v-on:click.stop="toogleLike"
 const API_URL = 'http://localhost:3000/api/blobs/';
 
 export default {
     name: 'FilterLike',
-    props: ['currentLike', 'blob'],
-    //props: ['blob'],
+    props: ['blob', 'currentLike'],
     data() {
-        // like: 0;
         return {
             likeRate: null,
             userId: this.$store.state.user.userId,
-            //disabled: 0,
-            //likes: '',
-            //dislikes: '',
-            likes: this.blob.likes,
-            dislikes: this.blob.dislikes,
-            //active: false,
-            isActive: true,
+            likes: this.likes,
+            usersLiked: this.usersLiked,
+            liked: false,
+            active: false,
             uriLike: API_URL + this.blob.id + '/like',
         };
     },
@@ -59,163 +36,68 @@ export default {
         updateFilter(by) {
             this.$emit('filterChange', by);
         },
-
-        toggleHand() {
+        //-----------------------------------------
+        toggleLike: function () {
             this.active = !this.active;
+            this.liked = !this.liked;
+            this.currentLike === 'jaime';
         },
-        //******************** */
-        //
+        //-----------------------------------------
         rateBlob() {
             let userId = this.$store.state.user.userId;
             userId = String(userId);
             let likeRate = this.likeRate;
-            //----------------------------------------------------------------------------------------
+            //-----------------------------------------
             // LIKE like = 0
-            //----------------------------------------------------------------------------------------
-            if (this.currentLike === 'jaime') {
-                if (this.blob.usersLiked.includes(userId)) {
-                    console.log('J aime ou je n aime pas DEJA ce blob');
-                    console.log('LikeRate: send 0');
-                    likeRate = 0;
-                    // desactiver bouton ?
+            //-----------------------------------------
+            const searchUser = this.blob.usersLiked.includes(userId);
+            if (this.currentLike === 'jaime' && searchUser === true) {
+                likeRate = parseFloat(likeRate);
+                likeRate = 0;
+                console.log(`likeRate PLUS 0 : ${likeRate}`);
 
-                    // enlever le doublon
-                    // let usersLiked = blob.usersLiked;
-                    // let filteredUsers = usersLiked.filter(
-                    //     (userLike) => userLike !== userId
-                    // );
-                    // blob.usersLiked = filteredUsers;
+                // fetch LIKE, userId
+                fetch(this.uriLike, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${this.$store.state.user.token}`,
+                    },
+                    body: JSON.stringify({ likeRate, userId }),
+                })
+                    .then(() => {
+                        console.log(likeRate);
+                        console.log(userId);
+                        console.log('***************');
+                    })
+                    .catch((err) => console.log(err));
 
-                    // await ?
-                    fetch(this.uriLike, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: `Bearer ${this.$store.state.user.token}`,
-                        },
-                        body: JSON.stringify({ likeRate, userId }),
-                    })
-                        .then(() => {
-                            console.log('likeRate 0 nothing');
-                            console.log('***************');
-                        })
-                        .catch((err) => console.log(err));
-                    //------------------
-                    // LIKE like = 0
-                    //-------------------
-                } else if (this.blob.usersDisliked.includes(userId)) {
-                    this.likeRate = 0;
-                    //
-                    // blob.dislikes -= 1;
-                    // let usersDisliked = blob.usersDisliked;
-                    // let filteredUsers = usersDisliked.filter(
-                    //     (userDislike) => userDislike !== userId
-                    // );
-                    // blob.usersDisliked = filteredUsers;
-                    // await ?
-                    fetch(this.uriLike, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: `Bearer ${this.$store.state.user.token}`,
-                        },
-                        body: JSON.stringify({ likeRate, userId }),
-                    })
-                        .then(() => {
-                            console.log('likeRate 0 nothing');
-                            console.log('***************');
-                        })
-                        .catch((err) => console.log(err));
-                }
+                //
+                this.blob.likes = this.blob.likes - 1;
                 //------------------
-                // LIKE like = 1
+                // LIKE like = 1)
                 //-------------------
-                else {
-                    // likeRate =1
-                    console.log('likeRate 1 JAIME');
-                    likeRate = 1;
-                    // chercher si userId est deja dans le tableau usersLiked
-                    // sinon on le supprime et on fait likeRate = 0
+            } else if (this.currentLike === 'jaime' && searchUser === false) {
+                likeRate = parseFloat(likeRate);
+                likeRate = 0;
 
-                    // await ?
-                    fetch(this.uriLike, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: `Bearer ${this.$store.state.user.token}`,
-                        },
-                        body: JSON.stringify({ likeRate, userId }),
+                // fetch
+                fetch(this.uriLike, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${this.$store.state.user.token}`,
+                    },
+                    body: JSON.stringify({ likeRate, userId }),
+                })
+                    .then(() => {
+                        console.log(likeRate);
+                        console.log(userId);
+                        console.log('***************');
                     })
-                        .then(() => {
-                            console.log('LikeRate: send 1');
-                            console.log('***************');
-                        })
-                        .catch((err) => console.log(err));
-                }
-            }
-
-            //----------------------------------------------------------------------------------------
-            // DISLIKE like = 0
-            //----------------------------------------------------------------------------------------
-            if (this.currentLike === 'jaimepas') {
-                if (
-                    this.blob.usersLiked.includes(userId) ||
-                    this.blob.usersDisliked.includes(userId)
-                ) {
-                    console.log('J aime ou je n aime pas DEJA ce blob');
-                    console.log('LikeRate: send 0');
-                    likeRate = 0;
-                    // desactiver bouton ?
-                    // chercher si userId est deja dans le tableau usersLiked
-                    // sinon on le suppime et on fait likeRate = 0
-                    //blob.likes -= 1;
-
-                    // enlever le doublon
-                    // let usersLiked = blob.usersLiked;
-                    // let filteredUsers = usersLiked.filter(
-                    //     (userLike) => userLike !== userId
-                    // );
-                    // blob.usersLiked = filteredUsers;
-                    //
-
-                    // await ?
-
-                    fetch(this.uriLike, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: `Bearer ${this.$store.state.user.token}`,
-                        },
-                        body: JSON.stringify({ likeRate, userId }),
-                    })
-                        .then(() => {
-                            console.log('likeRate 0 nothing');
-                            console.log('***************');
-                        })
-                        .catch((err) => console.log(err));
-                }
-                //------------------
-                // DISLIKE like = -1
-                //-------------------
-                else {
-                    console.log('J aime pas ce blob');
-                    console.log('LikeRate: send -1');
-                    likeRate = -1;
-
-                    fetch(this.uriLike, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: `Bearer ${this.$store.state.user.token}`,
-                        },
-                        body: JSON.stringify({ likeRate, userId }),
-                    })
-                        .then(() => {
-                            console.log('likeRate -1 send jaimepas');
-                            console.log('***************');
-                        })
-                        .catch((err) => console.log(err));
-                }
+                    .catch((err) => console.log(err));
+                // front
+                this.blob.likes = this.blob.likes + 1;
             }
         },
     },
@@ -224,8 +106,9 @@ export default {
         likesComputed: function () {
             return this.blob.likes;
         },
-        dislikesComputed: function () {
-            return this.blob.dislikes;
+
+        usersLikedComputed: function () {
+            return this.blob.usersLiked;
         },
     },
 };
@@ -233,13 +116,9 @@ export default {
 
 <style>
 form.form-like {
-    /** gris (#9b9eb4) #4E5166 red : #fd2d01 rose :FFD7D7  */
-    /**#e4e1e1 #f0b6b6  bleu ciel cae2e7*/
     margin-top: -20px;
     padding-top: 0px;
     background-image: linear-gradient(62deg, #ffd7d7 0%, #eeeeeb 100%);
-    /* background-color: #bbb; */
-    /* background: rgb(251, 229, 229); */
     border-radius: 0 0 20px 20px;
     opacity: 90%;
     border-top: 2px solid #fff;
@@ -248,8 +127,13 @@ form.form-like {
     border-left: 0px solid #cae2e7;
 }
 
+.activeClass {
+    background-color: #1c68a7;
+    color: green;
+}
+
 .filter-like {
-    color: #9b9eb4;
+    color: #fd2d01;
     /* background-color: #eeeeeb; */
     border-radius: 20px;
     margin: 0 auto;

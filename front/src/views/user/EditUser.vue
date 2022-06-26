@@ -39,38 +39,16 @@ export default {
             })
             .then((data) => {
                 //blobsArray
-                console.log(data.data);
-                // const blobsArray = Object.values(data);
-                //this.blob = data;
                 this.userId = data.data.userId;
                 this.pseudo = data.data.pseudo;
                 this.picture = data.data.picture;
                 this.email = data.data.email;
-                console.log('user :');
-                console.log(user);
             })
             .catch((error) => {
                 console.log(error);
                 this.error = 'Failed to fetch data - please try again later.';
             });
-
-        // fetch(this.uri)
-        //     .then((res) => res.json())
-        //     .then((data) => {
-        //         console.log('data :');
-        //         console.log(data);
-        //         this.title = data.title;
-        //         this.imageUrl = data.imageUrl;
-        //         this.description = data.description;
-        //     })
-        //     .catch((err) => console.log(err));
     },
-    // PATCH, PUT
-    /**
-     *  headers: {
-                Authorization: `Bearer ${this.$store.state.user.token}`,
-            },
-     */
     methods: {
         handleSubmit() {
             fetch(this.uri, {

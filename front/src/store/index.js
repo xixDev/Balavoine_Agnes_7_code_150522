@@ -3,9 +3,10 @@ import { createStore } from 'vuex';
 const axios = require('axios');
 
 const instance = axios.create({
-    baseURL: 'http://localhost:3000/api/auth',
+    baseURL: 'http://localhost:3000/api/',
 });
 
+/*-------- LOCAL STORAGE -------*/
 // save to localStoage : token, userId
 let user = localStorage.getItem('user');
 //
@@ -17,7 +18,6 @@ if (!user) {
 } else {
     try {
         user = JSON.parse(user);
-        // instance.defaults.headers.common['Authorization'] = user.token;
         instance.defaults.headers.common['Authorization'] =
             'Bearer' + user.token;
     } catch (ex) {
@@ -28,51 +28,39 @@ if (!user) {
     }
 }
 
-// Create a new store instance.
+/*-------- STORE -------*/
 const store = createStore({
     state: {
         status: '',
-        users: [],
+        // user: user,
         user: {
-            // userId: '',
+            userId: '',
             email: '',
             pseudo: '',
-            picture: '',
-            
+            admin: '',
         },
     },
+    /*-------- mutations ------*/
     mutations: {
         setStatus: function (state, status) {
             state.status = status;
         },
         logUser: function (state, user) {
-            // instance.defaults.headers.common['Authorization'] = user.token;
             instance.defaults.headers.common['Authorization'] =
                 'Bearer' + user.token;
             localStorage.setItem('user', JSON.stringify(user));
-            //user ou user?
             state.user = user;
-            console.log('//$$$// user:');
-            console.log(user);
         },
-        user: function (state, user) {
-            state.user = user;
-            // console.log('//$$$// user:');
-            // console.log(user);
+        // user: function (state, user) {
+        //     state.user = user;
+        // },
+        userInfos: function (state, user) {
+            state.user.userId = user.userId;
+            state.user.email = user.email;
+            state.user.pseudo = user.pseudo;
+            state.user.admin = user.admin;
+        },
 
-            // [userId, email, pseudo, picture, admin](
-            //     (state.user.userId = userId)
-            // ),
-            //     (state.user.email = email),
-            //     (state.user.pseudo = pseudo),
-            //     (state.user.picture = picture);
-            // state.user.admin = admin;
-        },
-        users: function (state, users) {
-            state.users = users;
-            console.log('//// users:');
-            console.log(users);
-        },
         logout: function (state) {
             state.user = {
                 userId: -1,
@@ -81,12 +69,13 @@ const store = createStore({
             localStorage.removeItem('user');
         },
     },
+    /*--------actions ------*/
     actions: {
         login: ({ commit }, user) => {
             commit('setStatus', 'loading');
             return new Promise((resolve, reject) => {
                 instance
-                    .post('/login', user)
+                    .post('auth/login', user)
                     .then(function (response) {
                         commit('setStatus', '');
                         commit('logUser', response.data);
@@ -100,18 +89,12 @@ const store = createStore({
         },
         //
         createAccount: ({ commit }, user) => {
-            console.log('**********');
-            console.log(user);
-            console.log('**********');
             commit('setStatus', 'loading');
             return new Promise((resolve, reject) => {
                 commit;
                 instance
-                    .post('/signup', user)
+                    .post('auth/signup', user)
                     .then(function (response) {
-                        console.log('**********02');
-                        console.log(user);
-                        console.log('**********');
                         commit('setStatus', 'created');
                         resolve(response);
                     })
@@ -121,11 +104,12 @@ const store = createStore({
                     });
             });
         },
+        // dashboard
         getUserInfos: ({ commit }) => {
             instance
-                .post('/dashboard')
+                .post('users/dashboard')
                 .then(function (response) {
-                    commit('user', response.data.user);
+                    commit('user', response.data.infos);
                 })
                 .catch(function () {});
         },

@@ -1,45 +1,27 @@
 <template>
     <div class="home">
-        <!-- <FilterNav :current="current" @filterChange="current = $event" /> -->
-        <!-- <div v-if="blobs.length"> -->
         <div v-for="user in users" :key="user.userId">
             <SingleUser :user="user" @delete="handleDelete" />
         </div>
     </div>
-    <!-- </div> -->
-
-    <!-- </div> -->
 </template>
 
 <script>
-//const axios = require('axios');
-const API_URL = 'http://localhost:3000/api/users';
-//import FilterNav from '../components/user/FilterNav.vue';
+const API_URL_AUTH = 'http://localhost:3000/api/auth';
 import SingleUser from '@/components/user/SingleUser.vue';
 
 export default {
     name: 'ListUser',
     components: { SingleUser },
-    //components: { SingleBlob, FilterNav },
+
     data() {
         return {
             users: null,
-            //current: '',
-            // current: 'all',
         };
     },
     mounted() {
-        // axios
-        //     .get('http://localhost:3000/api/blobs')
-        //     .then((res) => {
-        //         console.log(res.data);
-        //         this.blobs = res.data;
-        //     })
-        //     .catch((err) => console.log(err));
-
-        fetch(API_URL, {
+        fetch(API_URL_AUTH, {
             headers: {
-                //Authorization: 'Bearer ' + localStorage.getItem('token'),
                 Authorization: `Bearer ${this.$store.state.user.token}`,
             },
         })
@@ -60,26 +42,11 @@ export default {
             });
     },
     methods: {
-        // displayBlobs(id) {
-
-        //     console.log(data.id);
-        // },
         handleDelete(userId) {
             this.users = this.users.filter((user) => {
                 return user.userId !== userId;
             });
         },
     },
-    // computed: {
-    //     filteredBlobs() {
-    //         if (this.current === 'online') {
-    //             return this.users.filter((user) => user.status);
-    //         }
-    //         if (this.current === 'offline') {
-    //             return this.users.filter((user) => !user.status);
-    //         }
-    //         return this.users;
-    //     },
-    // },
 };
 </script>
