@@ -1,38 +1,29 @@
 <template>
     <nav class="main-nav">
         <span class="material-icons playlist_add"> playlist_add</span
-        ><router-link v-if="!login" :to="{ name: 'Home' }"
-            >Tous les messages</router-link
-        >
+        ><router-link :to="{ name: 'Home' }">Tous les messages</router-link>
 
         <span class="material-icons add"> add</span
-        ><router-link v-if="!login" :to="{ name: 'AddBlob' }">
+        ><router-link :to="{ name: 'AddBlob' }">
             Ajouter un message</router-link
         >
 
-        <router-link :to="{ name: 'Login' }"
+        <router-link :to="{ name: 'Dashboard' }"
             ><span class="material-icons face_5">face_5</span></router-link
         >
     </nav>
 </template>
 
 <script>
-import { mapState } from 'vuex';
-
 export default {
     name: 'NavBar',
-
-    computed: {
-        ...mapState({
-            user: 'user',
-        }),
-    },
 };
 </script>
 
 <style>
 .main-nav {
     background: #fd2d01;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -43,7 +34,6 @@ export default {
         -3px -3px 6px rgba(136, 134, 134, 0.06);
 }
 .main-nav a {
-    /* display: inline-block; */
     text-decoration: none;
     margin: 8px 10px;
     color: #ffd7d7;

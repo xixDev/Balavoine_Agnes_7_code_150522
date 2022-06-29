@@ -2,8 +2,8 @@
     <div class="blob">
         <h3>Mon dashboard</h3>
         <span class="material-icons face_5"> face_5 </span>
-        <h4>Hello Pseudo {{ user.pseudo }}</h4>
-        <h4>userId : {{ user.userId }}</h4>
+        <!-- <h4>Pseudo : {{ user.pseudo }}</h4> -->
+        <h4>Pseudo {{ user.userId }}</h4>
         <div>
             <button @click="logout()" class="button">Déconnexion</button>
         </div>

@@ -3,7 +3,8 @@
         <div class="user">
             <span class="material-icons face_5"> face_5 </span>
             <h4>
-                 Pseudo {{ blob.userId }}  / Blob ID : {{ blob.id }}
+                 Pseudo {{ blob.userId }} / Blob ID : {{ blob.id }}
+             
             </h4>
         </div>
         <div class="actions">
@@ -35,29 +36,35 @@
 <script>
 const API_URL = 'http://localhost:3000/api/blobs/';
 
+
 export default {
-    props: ['blob','user'],
+    props: ['blob'],
     data() {
         return {
             showTools: false,
             showdescription: true,
             uri: API_URL + this.blob.id,
-            pseudo: this.user.pseudo,
-            admin:this.user.admin,
+            // pseudo: this.user.pseudo,
+            // admin:this.user.admin,
+        
         };
     },
     mounted() {
-        // on teste si userId match userId du blob
+      
+// on teste si userId match userId du blob
         if ((this.$store.state.user.userId != this.blob.userId) && this.$store.state.user.userId!=1 ) {
             this.showTools = false;
-            // moderateur
+            
         } else if(this.$store.state.user.userId===1) {
             this.showTools = true;
+
         } else {
             this.showTools = true;
+            
         }
     },
     methods: {
+       
         // DELETE
         deleteBlob() {
             const headersForm = {
@@ -73,6 +80,8 @@ export default {
                 .catch((err) => console.log(err));
         },
        
+
+       
     },
     
   
@@ -82,6 +91,7 @@ export default {
 <style scoped>
 .blob {
     margin: 20px auto;
+    
     background: #fff;
     padding: 10px 20px 10px 20px;
     border-radius: 20px 20px 0px 0px;
@@ -131,6 +141,7 @@ h4 {
     justify-content: flex-start;
     align-items: center;
 }
+
 .face_5 {
     font-size: 44px;
     margin-right: 10px;

@@ -13,12 +13,14 @@ import Navbar from './components/ui/Navbar.vue';
 
 export default {
     components: { Navbar },
+
     mounted: function () {
         if (this.$store.state.user.userId != -1) {
             this.$router.push('/login');
             return;
         }
     },
+
     computed: {
         ...mapState({
             user: 'user',
@@ -39,12 +41,21 @@ export default {
 }
 
 body {
+    /* background: #f2f2f2; */
     background: #eeeeeb;
     color: #4e5166;
     min-height: 100vh;
     opacity: 95%;
-}
+    /* background-image: linear-gradient(62deg, #cae2e7 0%, #4e5166 100%); */
+    /* background-image: linear-gradient(62deg, #eeeeeb 0%, #ffd7d7 100%); */
+    /* background-image: linear-gradient(62deg, #f9e6e6 0%, #eeeeeb 100%); */
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
 
+    /* padding: 30px; */
+    /* padding: 32px;  */
+}
 #app {
     font-family: Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -88,9 +99,12 @@ h3 {
         -3px -3px 6px rgba(136, 134, 134, 0.03);
     border-left: 8px solid #fff;
 }
+
 button {
     display: block;
     margin: 20px auto 10px;
+    /* background-color: #4e5166; */
+
     background-color: #fd2d01;
     color: #ffd7d7;
     border: none;
@@ -99,12 +113,16 @@ button {
     cursor: pointer;
     font-size: 16px;
     font-weight: bold;
+    /* box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.05),
+        -3px -3px 6px rgba(136, 134, 134, 0.03);9b9eb4 */
 }
 button:hover {
     background-color: #ffd7d7;
     color: #fd2d01;
 }
 .material-icons {
+    /* font-size: 24px;
+    margin-left: 10px; */
     color: #4e5166;
 }
 footer {
@@ -131,5 +149,6 @@ button.material-icons {
 button:hover.material-icons {
     background-color: #02d2fe;
     color: #fff;
+    /* color: #fd2d01; */
 }
 </style>

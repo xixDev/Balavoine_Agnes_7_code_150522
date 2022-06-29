@@ -54,11 +54,13 @@ const store = createStore({
         // user: function (state, user) {
         //     state.user = user;
         // },
-        userInfos: function (state, user) {
+        user: function (state, user) {
             state.user.userId = user.userId;
             state.user.email = user.email;
             state.user.pseudo = user.pseudo;
             state.user.admin = user.admin;
+
+            //   state.user.picture = picture
         },
 
         logout: function (state) {
@@ -107,9 +109,9 @@ const store = createStore({
         // dashboard
         getUserInfos: ({ commit }) => {
             instance
-                .post('users/dashboard')
+                .get('users/:userId', user)
                 .then(function (response) {
-                    commit('user', response.data.infos);
+                    commit('user', response.data.data.user);
                 })
                 .catch(function () {});
         },

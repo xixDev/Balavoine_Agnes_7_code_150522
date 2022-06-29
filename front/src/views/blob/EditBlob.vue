@@ -16,6 +16,7 @@ export default {
     props: ['id'],
 
     data() {
+        console.log(this.id);
         return {
             uri: API_URL + this.id,
             title: '',
@@ -31,6 +32,7 @@ export default {
         };
     },
     mounted() {
+        //fetch(this.uri)
         fetch(this.uri, {
             headers: {
                 Authorization: `Bearer ${this.$store.state.user.token}`,
@@ -43,6 +45,9 @@ export default {
             })
             .then((data) => {
                 //blobsArray
+                console.log(data.data);
+                // const blobsArray = Object.values(data);
+                //this.blob = data;
                 this.title = data.data.title;
                 this.imageUrl = data.data.imageUrl;
                 this.description = data.data.description;
@@ -60,7 +65,7 @@ export default {
                 this.error = 'Failed to fetch data - please try again later.';
             });
     },
-    //  PUT
+    // PATCH, PUT
     methods: {
         handleSubmit() {
             let blob = {

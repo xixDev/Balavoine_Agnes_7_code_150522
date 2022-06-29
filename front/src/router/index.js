@@ -1,11 +1,11 @@
-// ROUTER
 import { createWebHistory, createRouter } from 'vue-router';
 import Home from '../views/Home.vue';
 
-// USER
+// USER  remetre AUTH
 import Login from '../views/user/Login.vue';
 import Dashboard from '../views/user/Dashboard.vue';
-// import EditUser from '../views/user/EditUser.vue';
+// import ListUser from '../views/user/ListUser.vue';
+//import EditUser from '../views/user/EditUser.vue';
 
 // BLOB
 import AddBlob from '../views/blob/AddBlob.vue';
@@ -48,8 +48,13 @@ const routes = [
 ];
 
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHistory(process.env.BASE_URL),
     routes,
 });
+
+// const router = createRouter({
+//     history: createWebHistory(),
+//     routes,
+// });
 
 export default router;

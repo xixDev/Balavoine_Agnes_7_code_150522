@@ -64,6 +64,7 @@ export default {
     data: function () {
         return {
             mode: 'login',
+
             email: null,
             pseudo: null,
             password: null,
@@ -71,7 +72,8 @@ export default {
     },
     mounted: function () {
         if (this.$store.state.user.userId != -1) {
-            this.$router.push('/dashboard');
+            this.$router.push('/login');
+
             return;
         }
     },
@@ -113,15 +115,17 @@ export default {
                 })
                 .then(
                     function () {
-                        self.$router.push('/dashboard');
+                        self.$router.push('/');
                     },
                     function (error) {
                         console.log(error);
+                        // ajouter route error
                     }
                 );
         },
         createAccount: function () {
             const self = this;
+
             this.$store
                 .dispatch('createAccount', {
                     email: this.email,
